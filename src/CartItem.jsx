@@ -9,32 +9,50 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    let total=0;
+    cart.forEach((item) => {
+        // Extract the cost and quantity
+        const unitPrice = parseFloat(item.cost.substring(1)); // Convert "$XX.XX" to a number
+        total += unitPrice * item.quantity; // Multiply cost by quantity and add to total
+      });
+    
+      return total; // Return the total sum
   };
 
   const handleContinueShopping = (e) => {
-   
-  };
-
-
+    e.preventDefault(); // Prevent default behavior (e.g., page reload)
+    onContinueShopping(e); // Call the parent component's function
+ };
 
   const handleIncrement = (item) => {
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
   const handleDecrement = (item) => {
-   
+    if (item.quantity > 1) {
+        dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+      } else {
+        dispatch(removeItem(item.name)); // Remove item when quantity reaches 0
+      } 
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name)); // Dispatch the action with the item's ID
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    const unitPrice = parseFloat(item.cost.substring(1)); // Extract numeric value from cost string
+    return item.quantity * unitPrice;
+  };
+
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount().toFixed(2)}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
