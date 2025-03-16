@@ -47,6 +47,9 @@ body {
     align-items: center;
     justify-content: center;
 }
+.product-grid h1{
+    text-align: center;
+}
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +61,13 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+.product-cost{
+    color:red;
+    margin-bottom:5px
+}
+.product-description{
+    margin-bottom:5px
+}
 /* Product Card */
 .product-card {
     flex: 0 0 calc(33.33% - 20px); /* Adjust width for 3 cards per row with 20px gap */
