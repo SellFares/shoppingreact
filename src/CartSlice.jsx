@@ -1,34 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-export const CartSlice = createSlice({
-  name: "cart",
+const CartSlice = createSlice({
+  name: 'cart',
   initialState: {
-    items: [], // Initialize items as an empty array
+    items: [], // Estado inicial
   },
   reducers: {
     addItem: (state, action) => {
       const { name, image, cost } = action.payload;
       const existingItem = state.items.find((item) => item.name === name);
       if (existingItem) {
-        existingItem.quantity++; // Incrementa a quantidade se o item já existe
+        existingItem.quantity++;
       } else {
-        state.items.push({ name, image, cost, quantity: 1 }); // Adiciona novo item ao carrinho
+        state.items.push({ name, image, cost, quantity: 1 });
       }
     },
     removeItem: (state, action) => {
-      const name = action.payload; // O nome do produto a ser removido
-      state.items = state.items.filter((item) => item.name !== name); // Remove o item com base no nome
+      state.items = state.items.filter((item) => item.name !== action.payload);
     },
     updateQuantity: (state, action) => {
-      const { name, quantity } = action.payload; // Nome do produto e nova quantidade
+      const { name, quantity } = action.payload;
       const existingItem = state.items.find((item) => item.name === name);
       if (existingItem && quantity > 0) {
-        existingItem.quantity = quantity; // Atualiza a quantidade para o valor fornecido
+        existingItem.quantity = quantity;
       }
     },
   },
 });
 
 export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
-
 export default CartSlice.reducer;
