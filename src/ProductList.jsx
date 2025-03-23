@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
-import { addItem } from '/CartSlice';
 import { useDispatch } from 'react-redux';
-
+import CartSlice, { addItem, removeItem, updateQuantity } from './CartSlice'; // Import the reducer
 
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({}); // State to store the items added to the cart
+    const [addedToCart, setAddedToCart] = useState([]); // State to store the items added to the cart
     const [cartItems, setCartItems] = useState([]); // State to store the items in the cart
     const dispatch = useDispatch();
     
-    const handleAddToCart = (plant) => {
-        dispatch(addItem(plant));
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [plant.name]: true,
-        }));
-    };
+    
 
     const plantsArray = [
         {
@@ -268,8 +261,14 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
-FIXME: // Add the handleAddToCart function here
 
+    const handleAddToCart = (plants) => {
+        dispatch(addItem(plants));
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [plants.name]: true,
+        }));
+    };
     
 
     return (
