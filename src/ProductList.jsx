@@ -8,7 +8,7 @@ import CartSlice, { addItem, removeItem, updateQuantity } from './CartSlice'; //
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState([]); // State to store the items added to the cart
+    const [addedToCart, setAddedToCart] = useState({}); // State to store the items added to the cart
     const [cartItems, setCartItems] = useState([]); // State to store the items in the cart
     const dispatch = useDispatch();
     
@@ -262,13 +262,13 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
 
-    const handleAddToCart = (plants) => {
-        dispatch(addItem(plants));
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
         setAddedToCart((prevState) => ({
-            ...prevState,
-            [plants.name]: true,
-        }));
-    };
+           ...prevState,
+           [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+         }));
+      };
     
 
     return (
