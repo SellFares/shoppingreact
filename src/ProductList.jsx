@@ -261,9 +261,6 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
 
-    const handleCheckoutShopping = (e) => {
-        alert('Functionality to be added for future reference');
-      };
       
     return (
         <div>
