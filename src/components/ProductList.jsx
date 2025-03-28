@@ -12,6 +12,15 @@ function ProductList({ onHomeClick }) {
     const [cartItemCount, setCartItemCount] = useState(0);
     const [addedToCart, setAddedToCart] = useState({});
 
+    const ProductList = ({ products }) => {
+        const dispatch = useDispatch();
+        const cartItems = useSelector(state => state.cart.items);
+      
+        const getCartQuantity = (productName) => {
+          const item = cartItems.find(item => item.name === productName);
+          return item ? item.quantity : 0;
+        };
+
     // Modified Add to Cart handler
     const handleAddToCart = (plant) => {
         dispatch(addItem(plant));
@@ -255,11 +264,19 @@ const styleA = {
     textDecoration: 'none',
 };
 
-// Handler functions
-    function handleAddToCart(plant) {
-        setCartItems([...cartItems, plant]);
-        setCartItemCount(prevCount => prevCount + 1);
-    }
+const isItemInCart = (plantName) => {
+    return cartItems.some(item => item.name === plantName);
+};
+
+// Simplified Add to Cart handler using Redux only
+const handleAddToCart = (plant) => {
+    dispatch(addItem({
+        name: plant.name,
+        cost: plant.cost,
+        image: plant.image,
+        quantity: 1
+    }));
+};
 
 const handleHomeClick = (e) => {
     e.preventDefault();
@@ -332,47 +349,41 @@ return (
         </div>
 
         {!showCart ? (
-    <div className="product-grid">
-        {plantsArray.map((category) => (
-            <div key={category.category} className="category-section">
-                <h2 className="category-title">{category.category}</h2>
-                <div className="plants-container">
-                    {category.plants.map((plant) => (
-                        <div key={plant.name} className="plant-card">
-                            <img 
-                                src={plant.image} 
-                                alt={plant.name} 
-                                className="plant-image"
-                            />
-                            <div className="plant-info">
-                                <h3>{plant.name}</h3>
-                                <p>{plant.description}</p>
-                                <p className="plant-price">{plant.cost}</p>
-                                {/* Add to Cart Button */}
-                                <button 
-                                className={`add-to-cart-btn ${addedToCart[plant.name] ? 'added' : ''}`}
-                                onClick={() => handleAddToCart(plant)}
-                                disabled={addedToCart[plant.name]}
-                                >
-                                    {addedToCart[plant.name] ? 'Added!' : 'Add to Cart'}
-                                </button>
+                <div className="product-grid">
+                    {plantsArray.map((category) => (
+                        <div key={category.category} className="category-section">
+                            <h2 className="category-title">{category.category}</h2>
+                            <div className="plants-container">
+                                {category.plants.map((plant) => (
+                                    <div key={plant.name} className="plant-card">
+                                        <img 
+                                            src={plant.image} 
+                                            alt={plant.name} 
+                                            className="plant-image"
+                                        />
+                                        <div className="plant-info">
+                                            <h3>{plant.name}</h3>
+                                            <p>{plant.description}</p>
+                                            <p className="plant-price">{plant.cost}</p>
+                                            <button 
+                                                className={`add-to-cart-btn ${isItemInCart(plant.name) ? 'added' : ''}`}
+                                                onClick={() => handleAddToCart(plant)}
+                                                disabled={isItemInCart(plant.name)}
+                                            >
+                                                {isItemInCart(plant.name) ? 'Added!' : 'Add to Cart'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
-        ))}
-    </div>
-
-        ) : (
-            <CartItem 
-                cartItems={cartItems}
-                cartItemCount={cartItemCount}
-                onContinueShopping={handleContinueShopping} 
-            />
-        )}
-    </div>
-);
+            ) : (
+                <CartItem onContinueShopping={handleContinueShopping} />
+            )}
+        </div>
+    );
 }
 
 export default ProductList;

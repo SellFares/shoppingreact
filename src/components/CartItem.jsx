@@ -1,48 +1,34 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { addItem, updateQuantity, removeItem } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total cart amount
+  // Calculate totals
   const calculateTotalAmount = () => {
     return cart.reduce((total, item) => {
-      return total + calculateItemSubtotal(item);
+      const price = parseFloat(item.cost.substring(1));
+      return total + (price * item.quantity);
     }, 0).toFixed(2);
-  };
-
-  // Calculate individual item subtotal
-  const calculateItemSubtotal = (item) => {
-    const price = parseFloat(item.cost.substring(1)); // Extract numeric value from "$xx.xx"
-    return price * item.quantity;
   };
 
   // Quantity handlers
   const handleIncrement = (item) => {
-    dispatch(updateQuantity({ 
-      name: item.name, 
-      quantity: item.quantity + 1 
-    }));
+    dispatch(addItem(item)); // Using addItem for increment
   };
 
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
-      dispatch(updateQuantity({ 
-        name: item.name, 
-        quantity: item.quantity - 1 
+      dispatch(updateQuantity({
+        name: item.name,
+        quantity: item.quantity - 1
       }));
     } else {
       dispatch(removeItem(item.name));
     }
-  };
-
-  // Continue shopping handler
-  const handleContinueShopping = (e) => {
-    e.preventDefault();
-    onContinueShopping();
   };
 
   // Remove item handler
@@ -50,10 +36,10 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
-  // Checkout handler
-  const handleCheckout = (e) => {
+  // Continue shopping handler
+  const handleContinueShopping = (e) => {
     e.preventDefault();
-    alert('Checkout functionality coming soon!');
+    onContinueShopping();
   };
 
   return (
