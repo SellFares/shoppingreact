@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import CartItem from './CartItem';
 
 export function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
-    const [showPlants, setShowPlants] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-    const [cartItemCount, setCartItemCount] = useState(0);
 
     // Add to Cart handler
     function handleAddToCart(plant) {
         setCartItems([...cartItems, plant]);
-        setCartItemCount(prevCount => prevCount + 1);
     }
+    
+    ProductList.propTypes = {
+        onHomeClick: PropTypes.func.isRequired,
+    };
 
     // Remains the same
     const plantsArray = [
@@ -246,10 +248,7 @@ export function ProductList({ onHomeClick }) {
     };
 
     // Handler functions
-    const handleAddToCart = (plant) => {
-        setCartItems([...cartItems, plant]);
-        setCartItemCount(prevCount => prevCount + 1);
-    };
+    // Removed duplicate handleAddToCart definition
 
     const handleHomeClick = (e) => {
         e.preventDefault();
@@ -263,10 +262,8 @@ export function ProductList({ onHomeClick }) {
 
     const handlePlantsClick = (e) => {
         e.preventDefault();
-        setShowPlants(true);
         setShowCart(false);
     };
-
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
@@ -289,10 +286,10 @@ export function ProductList({ onHomeClick }) {
 
                 <div style={styleObjUl}>
                     <div>
-                        <a href="#" onClick={handlePlantsClick} style={styleA}>Plants</a>
+                        <button onClick={handlePlantsClick} style={{ ...styleA, background: 'none', border: 'none', cursor: 'pointer' }}>Plants</button>
                     </div>
                     <div>
-                        <a href="#" onClick={handleCartClick} style={styleA}>
+                        <button onClick={handleCartClick} style={{ ...styleA, background: 'none', border: 'none', cursor: 'pointer' }}>
                             <div className="cart-container">
                                 <h1 className="cart">
                                     <svg
@@ -310,12 +307,12 @@ export function ProductList({ onHomeClick }) {
                                             strokeLinejoin="round"
                                             strokeWidth="2" />
                                     </svg>
-                                    {cartItemCount > 0 && (
-                                        <span className="cart-counter">{cartItemCount}</span>
+                                    {cartItems.length > 0 && (
+                                        <span className="cart-counter">{cartItems.length}</span>
                                     )}
                                 </h1>
                             </div>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -352,7 +349,7 @@ export function ProductList({ onHomeClick }) {
             ) : (
                 <CartItem
                     cartItems={cartItems}
-                    cartItemCount={cartItemCount}
+                    cartItemCount={cartItems.length}
                     onContinueShopping={handleContinueShopping} />
             )}
         </div>

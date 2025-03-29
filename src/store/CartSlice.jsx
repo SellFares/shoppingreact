@@ -1,3 +1,4 @@
+// filepath: /src/store/CartSlice.jsx
 import { createSlice } from '@reduxjs/toolkit';
 
 export const CartSlice = createSlice({
@@ -27,8 +28,8 @@ export const CartSlice = createSlice({
   },
 });
 
-// Action exports
+// Export the actions
 export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
 
-// Reducer export
+// Export the reducer
 export default CartSlice.reducer;
