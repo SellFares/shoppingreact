@@ -164,14 +164,37 @@ body {
     color: white;
     display: flex;
 }
+
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
 .cart_quantity_count{
-    margin-top: 16px;
-    /* background-color: red; */
-    margin-left: 27px;
     position: absolute;
-    font-size: 29px;
+    top: 0px;
+    right: 0px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
 
 }
+
+.cart svg {
+    fill: white;
+    stroke: white;
+}
+
+.cart:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .plantname_heading{
    display: flex;
    align-items: center;

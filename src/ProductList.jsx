@@ -3,6 +3,7 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { useDispatch } from 'react-redux';
 import CartSlice, { addItem, removeItem, updateQuantity } from './CartSlice'; // Import the reducer
+import { useSelector } from 'react-redux';
 
 
 function ProductList({ onHomeClick }) {
@@ -12,6 +13,9 @@ function ProductList({ onHomeClick }) {
     const [cartItems, setCartItems] = useState([]); // State to store the items in the cart
     const dispatch = useDispatch();
     
+    const totalItems = useSelector(state => {
+        return state.cart?.items?.reduce((total, item) => total + (item.quantity || 0), 0) || 0;
+    });
     
 
     const plantsArray = [
@@ -227,7 +231,7 @@ function ProductList({ onHomeClick }) {
         padding: '15px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignIems: 'center',
+        alignItems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
@@ -287,8 +291,23 @@ function ProductList({ onHomeClick }) {
 
                 </div>
                 <div style={styleObjUl}>
-                    <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
-                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path></svg></h1></a></div>
+                    <div><a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
+                    <div className="cart-icon-container">
+                        <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
+                            <h1 className='cart'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
+                            <rect width="256" height="256" fill="none"></rect>
+                            <path d="M184,184H69.8L41.9,30.6A8,8,0,0,0,34.1,24H16" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"></path>
+                            <circle cx="80" cy="204" r="20" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"></circle>
+                            <circle cx="184" cy="204" r="20" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"></circle>
+                            <path d="M62.5,144H188.1a15.9,15.9,0,0,0,15.7-13.1L216,64H48" fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"></path>
+                            </svg>
+                                {totalItems > 0 && (
+                                    <span className="cart_quantity_count">{totalItems}</span>
+                                )}
+                            </h1>
+                        </a>
+                    </div>
                 </div>
             </div>
             {!showCart ? (
@@ -304,7 +323,12 @@ function ProductList({ onHomeClick }) {
                                             <img className="product-image" src={plant.image} alt={plant.name}/>
                                             <h5>{plant.description}</h5>
                                             <h3>{plant.cost}</h3>
-                                            <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                            <button 
+                                            className={`product-button ${addedToCart[plant.name] ? 'added-to-cart' : ''}`}
+                                            onClick={() => handleAddToCart(plant)}
+                                            disabled={addedToCart[plant.name]}>
+                                            {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
+                                            </button>
                                         </div>
                                     ))}
                                 </div>
