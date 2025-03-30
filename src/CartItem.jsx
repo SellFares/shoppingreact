@@ -57,15 +57,11 @@ const CartItem = ({ onContinueShopping }) => {
     if (!item) return "0.00";
     const cost = parseFloat(item.cost.substring(1));
     return (cost * item.quantity).toFixed(2);
-<<<<<<< HEAD
-};
-=======
   };
 
   const handleCheckoutShopping = (e) => {
     alert('Functionality to be added for future reference');
   };
->>>>>>> new_branch
 
   return (
     <div className="cart-container">
