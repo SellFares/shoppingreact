@@ -7,6 +7,7 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
+
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let total = 0;
@@ -27,20 +28,28 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
   const handleContinueShopping = (e) => {
-   
+    e.preventDefault();
+    // Call the callback function passed as prop
+    onContinueShopping(e);
   };
 
 
   const handleIncrement = (item) => {
-    const updatedItem = { ...item, quantity: item.quantity + 1 };
-    dispatch(updateQuantity(updatedItem));
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
   const handleDecrement = (item) => {
-   
+   if (item.quantity > 1) {
+      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+    }
+    else {
+      // Remove item if quantity is 1 and decrement is pressed
+      dispatch(removeItem(item.name));
+    }
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
   };
 
   // Calculate total cost based on quantity for an item
@@ -48,7 +57,15 @@ const CartItem = ({ onContinueShopping }) => {
     if (!item) return "0.00";
     const cost = parseFloat(item.cost.substring(1));
     return (cost * item.quantity).toFixed(2);
+<<<<<<< HEAD
 };
+=======
+  };
+
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
+  };
+>>>>>>> new_branch
 
   return (
     <div className="cart-container">
@@ -73,7 +90,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" href='#' onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
         <button className="get-started-button1">Checkout</button>
       </div>
