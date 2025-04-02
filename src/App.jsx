@@ -1,49 +1,32 @@
-
-import React, { useState } from 'react';
-import ProductList from './ProductList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductList from './components/ProductList';
+import CartItem from './components/CartItem';
 import './App.css';
-import AboutUs from './AboutUs';
 
 function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
-
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
-  };
-
-  const handleHomeClick = () => {
-    setShowProductList(false);
-  };
-
-  return (
-    <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
-          </div>
-          </div>
-
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <nav className="navbar">
+                    <div className="logo">
+                        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="Paradise Nursery" />
+                        <div>
+                            <h3>Paradise Nursery</h3>
+                            <i>Where Green Meets Serenity</i>
+                        </div>
+                    </div>
+                    <div className="nav-links">
+                        <a href="/">Plants</a>
+                        <a href="/cart">Cart</a>
+                    </div>
+                </nav>
+                <Routes>
+                    <Route path="/" element={<ProductList />} />
+                    <Route path="/cart" element={<CartItem />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
-
-
-
