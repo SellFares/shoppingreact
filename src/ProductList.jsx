@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { addItem, removeItem, updateQuantity } from './CartSlice';
 function ProductList({ onHomeClick }) {
-    const [showCart, setShowCart] = useState(false);
-    const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({});
+    const dispatch = useDispatch()
+    const [cartCount,setCartCount] = useState(0);
+    const cartItems=useSelector(state => state.cart.items);
+    const alreadyInCart = (itemName) => {
+        return cartItems.some((item) => item.name === itemName);
+    }
 
     const plantsArray = [
         {
@@ -256,11 +261,13 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleAddToCart = (product) => {
-        dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-           ...prevState,
-           [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-         }));
+        dispatch(addItem(plant));
+        setCartCount(prevCount => prevCount + 1);
+        setAddedToCart((prevstate)=>(
+            {...prevstate,[plant.name]:true},
+        ));
+        
+
       };
       
     return (
