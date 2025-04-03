@@ -21,13 +21,10 @@ export const CartSlice = createSlice({
     },
     updateQuantity: (state, action) => {
         const { name, quantity } = action.payload;
-        const itemToUpdate = state.items.find(item => item.name === name);
-        if (itemToUpdate) {
-          itemToUpdate.quantity = quantity++;
-       
-        }
-   
-        dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
+      const itemToUpdate = state.items.find(item => item.name === name);
+      if (itemToUpdate) {
+        itemToUpdate.quantity = quantity;
+      }
 
     },
   },
