@@ -274,8 +274,7 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
                 <div className="product-grid">
-
-
+                
                 </div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
