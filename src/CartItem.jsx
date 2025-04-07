@@ -11,7 +11,7 @@ const CartItem = ({ onContinueShopping }) => {
   const calculateTotalAmount = () => {
     let total = 0;
     cart.forEach((item) => {
-          total += item.parseFloat(item.cost.substring(1)) * item.quantity;
+          total += parseFloat(item.cost.substring(1)) * item.quantity;
       })
       return total;
   };
@@ -19,8 +19,6 @@ const CartItem = ({ onContinueShopping }) => {
   const handleContinueShopping = (e) => {
     onContinueShopping?.(e);
   };
-
-
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
@@ -32,19 +30,18 @@ const CartItem = ({ onContinueShopping }) => {
     } else {
         dispatch(removeItem(item.name)); // Optional: Remove the item if quantity reaches zero
     }
-};
+  };
 
   const handleRemove = (item) => {
     dispatch(removeItem(item.name));
   };
-
+ 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-    totalCost = 0;
-    cost = parseFloat(item.cost.substring(1));
+    let totalCost = 0;
+    const cost = parseFloat(item.cost.substring(1));
     totalCost += cost * item.quantity;
     return totalCost;
-  
   };
 
   const handleCheckoutShopping = (e) => {
@@ -55,6 +52,7 @@ const CartItem = ({ onContinueShopping }) => {
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
       <div>
+      {cart.length === 0 && <p>No items selected</p>}
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
@@ -83,5 +81,3 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
 export default CartItem;
-
-
