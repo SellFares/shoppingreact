@@ -2,7 +2,7 @@
   "name": "shoppingcart",
   "private": true,
   "version": "0.0.0",
-   "homepage": "https://YOUR-GITHUB-USERNAME.github.io/e-plantShopping",
+   "homepage": "https://Ceay44.github.io/e-plantShopping",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
