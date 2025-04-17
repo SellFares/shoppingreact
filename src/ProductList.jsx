@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from './CartSlice';
+
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
+    const [showBackToTop, setShowBackToTop] = useState(false);
+
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.items);
+    const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     const plantsArray = [
         {
@@ -212,6 +221,7 @@ function ProductList({ onHomeClick }) {
             ]
         }
     ];
+
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
@@ -252,6 +262,40 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
+
+    const handleAddToCart = (plant) => {
+        dispatch(addItem(plant));
+        setAddedToCart(prev => ({ ...prev, [plant.name]: true }));
+    };
+
+    // New function for category dropdown navigation
+    const handleCategoryChange = (e) => {
+        const id = e.target.value;
+        if (id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
+    // Use effect to show/hide the floating back-to-top button based on scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            const secondSection = document.getElementById("category-1");
+            if (secondSection) {
+                const threshold = secondSection.offsetTop + secondSection.offsetHeight;
+                if (window.scrollY > threshold) {
+                    setShowBackToTop(true);
+                } else {
+                    setShowBackToTop(false);
+                }
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -265,20 +309,110 @@ function ProductList({ onHomeClick }) {
                             </div>
                         </a>
                     </div>
-
                 </div>
                 <div style={styleObjUl}>
-                    <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
-                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path></svg></h1></a></div>
+                    <div> 
+                      <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a>
+                    </div>
+                    <div style={{ position: 'relative' }}>
+                        <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
+                          <h1 className='cart'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
+                              <rect width="156" height="156" fill="none"></rect>
+                              <circle cx="80" cy="216" r="12"></circle>
+                              <circle cx="184" cy="216" r="12"></circle>
+                              <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path>
+                            </svg>
+                          </h1>
+                        </a>
+                        <span 
+                          className="cart_quantity_count" 
+                          style={{ 
+                            color: 'black', 
+                            backgroundColor: 'white',
+                            padding: '2px 6px',
+                            borderRadius: '50%',
+                            position: 'absolute', 
+                            top: '0px', 
+                            right: '0px',
+                            zIndex: 10,
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          {totalItemsCount}
+                        </span>
+                    </div>
                 </div>
             </div>
             {!showCart ? (
                 <div className="product-grid">
-
-
+                    {/* Dropdown for navigating to plant categories */}
+                    <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                        <select onChange={handleCategoryChange} style={{ padding: '8px', fontSize: '16px' }}>
+                            <option value="">Select Category</option>
+                            {plantsArray.map((category, i) => (
+                                <option key={i} value={`category-${i}`}>{category.category}</option>
+                            ))}
+                        </select>
+                    </div>
+                    {plantsArray.map((category, catIndex) => (
+                        <div key={catIndex} id={`category-${catIndex}`}>
+                            <h2 className="plant_heading">{category.category}</h2>
+                            <div className="product-list">
+                                {category.plants.map((plant, index) => (
+                                    <div key={index} className="product-card">
+                                        <img src={plant.image} alt={plant.name} className="product-image" />
+                                        <h3 className="product-title">{plant.name}</h3>
+                                        <p>{plant.description}</p>
+                                        <p className="product-price">{plant.cost}</p>
+                                        <button
+                                            className={`product-button ${addedToCart[plant.name] ? "added-to-cart" : ""}`}
+                                            onClick={() => handleAddToCart(plant)}
+                                            disabled={addedToCart[plant.name]}
+                                        >
+                                            {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
+            )}
+            {/* Floating Back-to-Top Button that appears when scrolled past second section */}
+            {showBackToTop && (
+                <div style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    zIndex: 9999,
+                }}>
+                    <button 
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      style={{
+                          background: 'white',
+                          border: 'none',
+                          borderRadius: '50%',
+                          boxShadow: '0 2px 5px rgba(0,0,0,0.3)',
+                          padding: '10px',
+                          cursor: 'pointer'
+                      }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black" viewBox="0 0 24 24">
+                          <path d="M4 12l1.41 1.41L11 7.83v12.34h2V7.83l5.59 5.58L20 12l-8-8z"/>
+                        </svg>
+                        <svg>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 20L20 10"
+                          />
+                        </svg>
+                    </button>
+                </div>
             )}
         </div>
     );
