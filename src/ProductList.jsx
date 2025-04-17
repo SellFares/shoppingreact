@@ -381,7 +381,7 @@ function ProductList({ onHomeClick }) {
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
             )}
-            {/* Floating Back-to-Top Button that appears when scrolled past second section */}
+            {/* Does not work yet!!!!! Floating Back-to-Top Button that appears when scrolled past second section */}
             {showBackToTop && (
                 <div style={{
                     position: 'fixed',
