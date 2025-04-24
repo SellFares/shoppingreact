@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "./CartSlice";
-
 
 function ProductList({ onHomeClick }) {
   const dispatch = useDispatch(); // Initialize the dispatch function from Redux
   const cartItems = useSelector((state) => state.cart.items);
+  const totalItemsInCart = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
@@ -275,8 +275,7 @@ function ProductList({ onHomeClick }) {
     fontSize: "30px",
     textDecoration: "none",
     paddingLeft: 200,
-    
-      };
+  };
 
   const handleHomeClick = (e) => {
     e.preventDefault();
@@ -296,13 +295,13 @@ function ProductList({ onHomeClick }) {
   const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
-  };
+     };
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
     setAddedToCart((prevState) => ({
-       ...prevState,
-       [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-     }));
+      ...prevState,
+      [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+    }));
   };
   return (
     <div>
@@ -331,7 +330,10 @@ function ProductList({ onHomeClick }) {
           <div>
             {" "}
             <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
-              <h1 className="cart">
+              <h1
+                className="cart"
+                style={{ position: "relative", display: "inline-block" }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 256 256"
@@ -352,6 +354,27 @@ function ProductList({ onHomeClick }) {
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
+                {totalItemsInCart > 0 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "30px",
+                      right: "30px",
+                      transform: "translate(50%, -50%)",
+                      color: "white",
+                      width: "22px",
+                      height: "22px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                      zIndex: 1,
+                    }}
+                  >
+                    {totalItemsInCart}
+                  </div>
+                )}
               </h1>
             </a>
           </div>
@@ -373,13 +396,20 @@ function ProductList({ onHomeClick }) {
                       src={plant.image}
                       alt={plant.name}
                     />
-                    <div className="product-description">{plant.description}</div>
+                    <div className="product-description">
+                      {plant.description}
+                    </div>
                     <div className="product-price">{plant.cost}</div>
                     <button
-                      className="product-button"
+                      className={`product-button ${
+                        addedToCart[plant.name] ? "added-to-cart" : ""
+                      }`}
                       onClick={() => handleAddToCart(plant)}
+                      disabled={addedToCart[plant.name]}
                     >
-                      Add to Cart
+                      {addedToCart[plant.name]
+                        ? "Added to Cart"
+                        : "Add to Cart"}
                     </button>
                   </div>
                 ))}

@@ -112,6 +112,10 @@ body {
     transition: background-color 0.3s ease-in-out;
     margin-top: 10px;
 }
+.added-to-cart {
+    background-color: #d3d3d3;
+    color: #999;
+     }
 
 .product-button:hover {
     background-color: #c0392b;
