@@ -6,6 +6,9 @@ import { addItem } from "./CartSlice";
 
 
 function ProductList({ onHomeClick }) {
+  const dispatch = useDispatch(); // Initialize the dispatch function from Redux
+  const cartItems = useSelector((state) => state.cart.items);
+
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
   const [addedToCart, setAddedToCart] = useState({});
@@ -271,7 +274,9 @@ function ProductList({ onHomeClick }) {
     color: "white",
     fontSize: "30px",
     textDecoration: "none",
-  };
+    paddingLeft: 200,
+    
+      };
 
   const handleHomeClick = (e) => {
     e.preventDefault();
@@ -317,7 +322,7 @@ function ProductList({ onHomeClick }) {
           </div>
         </div>
         <div style={styleObjUl}>
-          <div>
+          <div className="plantname_heading">
             {" "}
             <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>
               Plants
@@ -356,9 +361,9 @@ function ProductList({ onHomeClick }) {
         <div className="product-grid">
           {plantsArray.map((category, index) => (
             <div key={index}>
-              <h1>
-                <div>{category.category}</div>
-              </h1>
+              <h2 className="plantname_heading">
+                <div className="plant_heading">{category.category}</div>
+              </h2>
               <div className="product-list">
                 {category.plants.map((plant, plantIndex) => (
                   <div className="product-card" key={plantIndex}>
