@@ -7,7 +7,10 @@ import { addItem } from "./CartSlice";
 function ProductList({ onHomeClick }) {
   const dispatch = useDispatch(); // Initialize the dispatch function from Redux
   const cartItems = useSelector((state) => state.cart.items);
-  const totalItemsInCart = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItemsInCart = cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
@@ -295,7 +298,29 @@ function ProductList({ onHomeClick }) {
   const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
-     };
+
+    setAddedToCart((prevState) => {
+      const updatedState = { ...prevState };
+      cartItems.forEach((item) => {
+        updatedState[item.name] = true; // Keep items in cart marked as true
+      });
+      return updatedState;
+    });
+  };
+
+  const isInCart = (product) => {
+    return cartItems.some((item) => item.name === product.name);
+  };
+
+  // Update addedToCart state based on the cart state
+  useEffect(() => {
+    const updatedAddedToCart = {};
+    cartItems.forEach((item) => {
+      updatedAddedToCart[item.name] = true; // Set the item to true if it's in the cart
+    });
+    setAddedToCart(updatedAddedToCart);
+  }, [cartItems]); // Re-run when cartItems change
+
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
     setAddedToCart((prevState) => ({
@@ -303,6 +328,7 @@ function ProductList({ onHomeClick }) {
       [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
     }));
   };
+
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -401,16 +427,18 @@ function ProductList({ onHomeClick }) {
                     </div>
                     <div className="product-price">{plant.cost}</div>
                     <button
-                      className={`product-button ${
-                        addedToCart[plant.name] ? "added-to-cart" : ""
-                      }`}
-                      onClick={() => handleAddToCart(plant)}
-                      disabled={addedToCart[plant.name]}
-                    >
-                      {addedToCart[plant.name]
-                        ? "Added to Cart"
-                        : "Add to Cart"}
-                    </button>
+                    className={`product-button ${
+                      addedToCart[plant.name] ? "added-to-cart" : ""
+                    }`}
+                    onClick={() =>
+                      addedToCart[plant.name] ? null : handleAddToCart(plant) // Only add if not already added
+                    }
+                    disabled={addedToCart[plant.name]} // Disable if added to cart
+                  >
+                    {addedToCart[plant.name]
+                      ? "Added to Cart"
+                      : "Add to Cart"}
+                  </button>
                   </div>
                 ))}
               </div>

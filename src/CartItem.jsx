@@ -47,6 +47,11 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleRemove = (item) => {
     dispatch(removeItem(item));
+    setAddedToCart((prevState) => {
+      const updatedState = { ...prevState };
+      delete updatedState[item.name]; // Remove the item from the addedToCart state
+      return updatedState;
+    });
   };
   const handleCheckoutShopping = (e) => {
     alert('Functionality to be added for future reference');
