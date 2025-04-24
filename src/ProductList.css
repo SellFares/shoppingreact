@@ -58,6 +58,12 @@ body {
     align-items: center;
     justify-content: center;
 }
+.category {
+    text-align: center;
+    margin: 50px;
+    font-size: 30px;
+    text-decoration: underline;
+}
 
 /* Product Card */
 .product-card {
