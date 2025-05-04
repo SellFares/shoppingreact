@@ -264,6 +264,10 @@ function ProductList({ onHomeClick }) {
         dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
     };
 
+    const calculateTotalNumberOfPlants = () => {
+        return cart.reduce((sum, item) => sum += item.quantity, 0);
+    };
+
     const checkAddedToCart = (plant) => {
         return cart.find(item => item.name == plant.name);
     };
@@ -291,7 +295,7 @@ function ProductList({ onHomeClick }) {
                         <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
                             <h1 className='cart'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
-                                    <text x="100" y="160" fill="white" font-size="100">{cart.reduce((sum, item) => sum += item.quantity, 0)}</text>
+                                    <text x="100" y="160" fill="white" font-size="100">{calculateTotalNumberOfPlants()}</text>
                                     <rect width="156" height="156" fill="none"></rect>
                                     <circle cx="80" cy="216" r="12"></circle>
                                     <circle cx="184" cy="216" r="12"></circle>
