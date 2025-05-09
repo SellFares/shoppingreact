@@ -165,7 +165,7 @@ body {
     display: flex;
 }
 .cart_quantity_count{
-    margin-top: 16px;
+    margin-top: -50px;
     /* background-color: red; */
     margin-left: 27px;
     position: absolute;
