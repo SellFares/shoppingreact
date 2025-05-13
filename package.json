@@ -2,7 +2,7 @@
   "name": "shoppingcart",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://github.com/CodeByYuxuan/e-plantShopping",
+  "homepage": "https://codebyyuxuan.github.io/e-plantShopping/",
   "type": "module",
   "scripts": {
     "dev": "vite",
