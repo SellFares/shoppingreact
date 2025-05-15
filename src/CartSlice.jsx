@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -19,7 +20,8 @@ export const CartSlice = createSlice({
     }
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.name !== action.payload);
+      const item=action.payload;
+      state.items = state.items.filter((i) => i.name !== item.name);
     },
     updateQuantity: (state, action) => {
       const { name, quantity } = action.payload; // Destructure the product name and new quantity from the action payload
@@ -33,6 +35,6 @@ export const CartSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+export const { addItem, removeItem, updateQuantity} = CartSlice.actions;
 
 export default CartSlice.reducer;
