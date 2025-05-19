@@ -22,9 +22,14 @@ export const CartSlice = createSlice({
     
     },
     removeItem: (state, action) => {
+      state.items - state.items.filter(item => !== action.payload);
     },
     updateQuantity: (state, action) => {
-
+      const { name, image, cost } = action.payload;
+          const itemToUpdate = state.items.find(item => item.name === name);
+            if (itemToUpdate) {
+              itemToUpdate.quantity = quantity; 
+        }
     
     },
   },
