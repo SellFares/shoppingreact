@@ -10,6 +10,24 @@ function ProductList({ onHomeClick }) {
             category: "Air Purifying Plants",
             plants: [
                 {
+                    {plantsArray.map((category, index) => (
+                        <div key={index}> {} 
+                        <h1>
+                            <div>{category.category}</div>
+                        </h1>
+                        <div className="product-list">
+                            {category.plants.map((plant, plantIndex)=> (
+                                <div className="plant-card" key={plantIndex}>
+                                    <img className="product-image" src={plant.image} alt={plant.name} />
+                                    <div className="product-title">{plant.name}</div>
+                                    <div className='product-description'>{plant.description} </div>
+                                    <div className='product-cost'>${plant.cost}</div>
+                                    <button className='product-button' onClick={() => handleAddToCart(plant)}>Add To Cart</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))};
                     name: "Snake Plant",
                     image: "https://cdn.pixabay.com/photo/2021/01/22/06/04/snake-plant-5939187_1280.jpg",
                     description: "Produces oxygen at night, improving air quality.",
@@ -212,6 +230,12 @@ function ProductList({ onHomeClick }) {
             ]
         }
     ];
+    const handleAddToCart =(product) => {
+        dispatchEvent(addItem(product));
+        setAddedToCart((prevState) => ({
+            ...prevState, [product.name]: true,
+        }));
+    };
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
