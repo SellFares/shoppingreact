@@ -19,6 +19,7 @@ export const CartSlice = createSlice({
      }
 },
     removeItem: (state, action) => {
+        const productName = action.payload;
         state.items = state.items.filter(item => item.name !== action.payload);
     },
     updateQuantity: (state, action) => {
@@ -32,7 +33,3 @@ export const CartSlice = createSlice({
     },
   },
 });
-
-export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
-
-export default CartSlice.reducer;
