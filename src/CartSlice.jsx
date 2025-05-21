@@ -17,10 +17,21 @@ export const CartSlice = createSlice({
   } else {
     // If item does not exist, add it to the cart with quantity 1
     state.items.push({ name, image, cost, quantity: 1 });
-  }
-},
     
-    },
+    const handleAddToCart = (product) => {
+      dispatch(addItem(product));
+
+      SetAddedToCart((prevState) => ({
+        ...prevState, 
+        [product.name]: true,
+      }));
+    };
+    }
+  },
+ },
+  },
+    
+    
     removeItem: (state, action) => {
       state.items - state.items.filter(item => !== action.payload);
     },
