@@ -4,13 +4,11 @@ import CartItem from './CartItem';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-
+    const [addedToCart, setAddedToCart] = useState({});
+    
     const plantsArray = [
         {
-            category: "Air Purifying Plants",
-            plants: [
-                {
-                    {plantsArray.map((category, index) => (
+            {plantsArray.map((category, index) => (
                         <div key={index}> {} 
                         <h1>
                             <div>{category.category}</div>
@@ -28,6 +26,11 @@ function ProductList({ onHomeClick }) {
                         </div>
                     </div>
                 ))};
+    
+            category: "Air Purifying Plants",
+            plants: [
+                {
+                    
                     name: "Snake Plant",
                     image: "https://cdn.pixabay.com/photo/2021/01/22/06/04/snake-plant-5939187_1280.jpg",
                     description: "Produces oxygen at night, improving air quality.",
