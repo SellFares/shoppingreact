@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
-import addItem from './CartSlice';
-function ProductList({ onHomeClick }) {
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from './CartSlice';
+function ProductList(props) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [addedToCart, setAddedToCart] = useState({});
+    const [cart, setCart] = useState([]);
+    const dispatch = useDispatch();
+    const cartItems - useSelector(state => state.cart.items);
+    console.log(cartItems);
+    useEffect(() => {
+    }, []);
+
+    const alreadyInCart = (itemName) => {
+        return cartItems.some((item) => item.name === itemName);
+    }
+    const HandleAddToCart = (item) => {
+        console.log('clicked');
+        dispatch(addItem(item));
+    }
+    const totalItems =() => {
+        return cartItems.reduce((total, item) => total + item.quantity, 0);
+    }
     
     const plantsArray = [
         {
-            {plantsArray.map((category, index) => (
-                        <div key={index}> {} 
-                        <h1>
-                            <div>{category.category}</div>
-                        </h1>
-                        <div className="product-list">
-                            {category.plants.map((plant, plantIndex)=> (
-                                <div className="plant-card" key={plantIndex}>
-                                    <img className="product-image" src={plant.image} alt={plant.name} />
-                                    <div className="product-title">{plant.name}</div>
-                                    <div className='product-description'>{plant.description} </div>
-                                    <div className='product-cost'>${plant.cost}</div>
-                                    <button className='product-button' onClick={() => handleAddToCart(plant)}>Add To Cart</button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))};
     
             category: "Air Purifying Plants",
             plants: [
@@ -191,6 +190,7 @@ function ProductList({ onHomeClick }) {
                     cost: "$12"
                 }
             ]
+        }
         },
         {
             category: "Low Maintenance Plants",
@@ -232,14 +232,9 @@ function ProductList({ onHomeClick }) {
                     cost: "$22"
                 }
             ]
-        }
+        },
     ];
-    const handleAddToCart =(product) => {
-        dispatchEvent(addItem(product));
-        setAddedToCart((prevState) => ({
-            ...prevState, [product.name]: true,
-        }));
-    };
+   
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
@@ -259,7 +254,7 @@ function ProductList({ onHomeClick }) {
         color: 'white',
         fontSize: '30px',
         textDecoration: 'none',
-    }
+    };
 
     const handleHomeClick = (e) => {
         e.preventDefault();
@@ -277,6 +272,7 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleContinueShopping = (e) => {
+        console.log('clicked');
         e.preventDefault();
         setShowCart(false);
     };
@@ -288,7 +284,7 @@ function ProductList({ onHomeClick }) {
                         <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
                         <a href="/" onClick={(e) => handleHomeClick(e)}>
                             <div>
-                                <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
+                                <h3 style={{ color: 'white' }}>Manatee Nursery</h3>
                                 <i style={{ color: 'white' }}>Where Green Meets Serenity</i>
                             </div>
                         </a>
@@ -302,6 +298,18 @@ function ProductList({ onHomeClick }) {
             </div>
             {!showCart ? (
                 <div className="product-grid">
+                    <br></br>
+                    {plantsArray.map((item) => <div className-"mainCategoryDiv"><h1>{item.category}</h1>
+                        <div className="product-list">
+                            {item.plants.map((plant) =>
+                    <div className="product-image" src= {plant.image} alt={plant.name} />
+                    <h2>{plant.name}</h2>
+                        <p>{plant.description}</p>
+                        <p>{plant.cost}</p>
+                        <button disabled={alreadyInCart(plant.name)? true:false} onClick{() => handleAddToCart({name:plant.name,cost:plant.cost,image:plant.image})} className="product-button">Add to Cart</button>
+                        </div>)}
+                    </div>
+                    </div>)}
 
 
                 </div>
