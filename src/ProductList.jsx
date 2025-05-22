@@ -267,7 +267,6 @@ function ProductList(props) {
     };
 
     const handleContinueShopping = (e) => {
-        console.log('clicked');
         e.preventDefault();
         setShowCart(false);
     };
