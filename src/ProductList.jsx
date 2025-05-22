@@ -6,11 +6,9 @@ import { addItem } from './CartSlice';
 function ProductList(props) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
-    const [cart, setCart] = useState([]);
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);
-    useEffect(() => {
-    }, []);
+    
 
     const alreadyInCart = (itemName) => {
         return cartItems.some((item) => item.name === itemName);
@@ -188,7 +186,6 @@ function ProductList(props) {
                     cost: "$12"
                 }
             ]
-        }
         },
         {
             category: "Low Maintenance Plants",
@@ -300,11 +297,11 @@ function ProductList(props) {
                     {plantsArray.map((item) => <div className="mainCategoryDiv"><h1>{item.category}</h1>
                         <div className="product-list">
                             {item.plants.map((plant) =>
-                    <div className="product-image" src= {plant.image} alt={plant.name} />
+                    <img className="product-image" src= {plant.image} alt={plant.name} />
                     <h2>{plant.name}</h2>
                         <p>{plant.description}</p>
                         <p>{plant.cost}</p>
-                        <button disabled={alreadyInCart(plant.name)? true:false} onClick{() => handleAddToCart({name:plant.name,cost:plant.cost,image:plant.image})} className="product-button">Add to Cart</button>
+                        <button disabled={alreadyInCart(plant.name)? true:false} onClick{() => handleAddToCart(...)} ...>Add to Cart</button>
                         </div>)}
                     </div>
                     </div>)}
