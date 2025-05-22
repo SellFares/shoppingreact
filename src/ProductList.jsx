@@ -8,16 +8,14 @@ function ProductList(props) {
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [cart, setCart] = useState([]);
     const dispatch = useDispatch();
-    const cartItems - useSelector(state => state.cart.items);
-    console.log(cartItems);
+    const cartItems = useSelector(state => state.cart.items);
     useEffect(() => {
     }, []);
 
     const alreadyInCart = (itemName) => {
         return cartItems.some((item) => item.name === itemName);
     }
-    const HandleAddToCart = (item) => {
-        console.log('clicked');
+    const handleAddToCart = (item) => {
         dispatch(addItem(item));
     }
     const totalItems =() => {
@@ -241,7 +239,7 @@ function ProductList(props) {
         padding: '15px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignIems: 'center',
+        alignItems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
@@ -299,7 +297,7 @@ function ProductList(props) {
             {!showCart ? (
                 <div className="product-grid">
                     <br></br>
-                    {plantsArray.map((item) => <div className-"mainCategoryDiv"><h1>{item.category}</h1>
+                    {plantsArray.map((item) => <div className="mainCategoryDiv"><h1>{item.category}</h1>
                         <div className="product-list">
                             {item.plants.map((plant) =>
                     <div className="product-image" src= {plant.image} alt={plant.name} />
