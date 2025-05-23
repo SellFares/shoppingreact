@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import ProductList from './ProductList';
 import './App.css';
@@ -19,10 +18,12 @@ function App() {
   return (
     <div className="app-container">
       <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
+        <div className="background-image">
+          <img src="https://pixabay.com/photos/moss-spore-capsules-spores-forest-7802406/" alt="" />
+        </div>
         <div className="content">
          <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
+         <h1>Welcome To Plant Heaven</h1>
           <div className="divider"></div>
           <p>Where Green Meets Serenity</p>
          
