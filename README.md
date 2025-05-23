@@ -10,6 +10,9 @@ A modern, responsive React + Redux shopping cart application for houseplants, bu
 - Fully responsive and visually appealing design
 - Modular, best-practice React codebase
 
+## 🚀 Live Demo
+**Visit the deployed app:**
+[GitHub Pages Link](https://mubeen-baloch.github.io/e-plantShopping/)
 
 ## 🛠️ Getting Started
 1. **Clone the repository:**
