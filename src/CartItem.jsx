@@ -84,4 +84,4 @@ const CartItem = () => {
     );
 };
 
-export default CartItem
+export default CartItem;
