@@ -253,6 +253,7 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleCartClick = (e) => {
+        console.log("cart clicked");
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
     };
