@@ -1,91 +1,90 @@
-/* Navbar styles */
-.navbar {
-    background-color: #4CAF50; /* Green background */
+/* src/ProductList.css */
+
+/* Header Styles (using .navbar-product-list for specificity) */
+.navbar-product-list {
+    background-color: #4CAF50;
     color: #fff;
-    padding: 10px 20px; /* Adjusted padding */
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-brand-link {
+.navbar-product-list .navbar-brand .navbar-brand-link { /* More specific selector */
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
 }
 
-.navbar-logo {
-    height: 50px; /* Adjust as needed */
+.navbar-product-list .navbar-logo { /* More specific selector */
+    height: 50px;
     margin-right: 10px;
 }
 
-.navbar-brand h3 {
+.navbar-product-list .navbar-brand h3 { /* More specific selector */
     margin: 0;
-    font-size: 1.5em; /* Adjust as needed */
+    font-size: 1.5em;
     color: white;
 }
 
-.navbar-brand i {
-    font-size: 0.9em; /* Adjust as needed */
+.navbar-product-list .navbar-brand i { /* More specific selector */
+    font-size: 0.9em;
     color: white;
     font-style: italic;
 }
 
-.navbar-links {
+.navbar-product-list .navbar-links { /* More specific selector */
     display: flex;
     align-items: center;
 }
 
-.navbar-link {
+.navbar-product-list .navbar-link { /* More specific selector */
     color: white;
     text-decoration: none;
-    font-size: 1.2em; /* Adjust as needed */
-    margin-left: 25px; /* Spacing between links */
+    font-size: 1.2em;
+    margin-left: 25px;
     padding: 8px 12px;
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
 
-.navbar-link:hover {
-    background-color: #45a049; /* Slightly darker green on hover */
+.navbar-product-list .navbar-link:hover,
+.navbar-product-list .navbar-link.active { /* Style for active/hover link */
+    background-color: #45a049;
 }
 
-.cart-link {
-    position: relative; /* For positioning the badge */
+.navbar-product-list .cart-link { /* More specific selector */
+    position: relative;
     display: flex;
     align-items: center;
 }
 
-.cart-link svg {
+.navbar-product-list .cart-link svg { /* More specific selector */
     fill: white; /* Ensure SVG icon is visible */
 }
 
-.cart-badge {
+.navbar-product-list .cart-badge { /* More specific selector */
     position: absolute;
-    top: -5px;  /* Adjust for optimal positioning */
-    right: -10px; /* Adjust for optimal positioning */
-    background-color: #ff4500; /* Orange-red for badge */
+    top: -5px;
+    right: -10px;
+    background-color: #ff4500;
     color: white;
     border-radius: 50%;
     padding: 2px 6px;
     font-size: 0.75em;
     font-weight: bold;
-    border: 1px solid white; /* Optional: adds a border to the badge */
+    border: 1px solid white;
 }
-
 
 /* Product Page Container */
 .product-page-container {
     padding: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto; /* Added top/bottom margin */
+    background-color: #f9f9f9; /* Light background for product area */
+    border-radius: 8px;
 }
 
 /* Category Section */
@@ -98,15 +97,15 @@
     color: #333;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #4CAF50; /* Green accent */
+    border-bottom: 2px solid #4CAF50;
     text-align: left;
 }
 
 /* Product Grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px; /* Slightly increased gap */
 }
 
 /* Product Card */
@@ -114,61 +113,56 @@
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
+    padding: 20px; /* Increased padding */
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Softer shadow */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex; /* For better content alignment */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Pushes button to bottom */
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Enhanced hover shadow */
 }
 
 .product-image {
     width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover; /* Ensures image covers the area, might crop */
-    border-radius: 4px;
+    height: 220px; /* Slightly increased height */
+    object-fit: cover;
+    border-radius: 6px; /* Rounded corners for image */
     margin-bottom: 15px;
 }
 
 .product-name {
-    font-size: 1.2em;
+    font-size: 1.25em; /* Slightly larger */
     color: #333;
     margin-bottom: 10px;
-    min-height: 2.4em; /* Ensure space for two lines of text to avoid layout shifts */
+    min-height: 2.5em; /* Ensure space for two lines */
+    font-weight: 600; /* Bolder name */
 }
 
 .product-price {
-    font-size: 1.1em;
-    color: #007bff; /* Blue price, or use #4CAF50 for green */
+    font-size: 1.15em; /* Slightly larger */
+    color: #007bff;
     font-weight: bold;
     margin-bottom: 15px;
 }
 
 .add-to-cart-button {
-    background-color: #28a745; /* Green button */
+    background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 18px; /* Increased padding */
     font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100%; /* Make button take full width of card padding */
+    width: 100%;
+    margin-top: auto; /* Pushes button to the bottom if card uses flex */
 }
 
 .add-to-cart-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838;
 }
-
-/* If you want to show descriptions (uncommented in JSX): */
-/*
-.product-description {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 10px;
-    min-height: 3.6em; // Adjust based on typical description length
-}
-*/
