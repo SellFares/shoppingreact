@@ -9,10 +9,10 @@ import './App.css';
 function App() {
   return (
     <div>
-      {/* No global header here, headers are inside ProductList and CartItem as per current structure */}
+      {/* No global header here, headers are inside ProductList and CartItem */}
       <Routes>
         <Route path="/" element={<AboutUs />} />
-        <Route path="/products" element={<ProductList />} /> {/* Changed from /productlist */}
+        <Route path="/products" element={<ProductList />} /> {/* UPDATED from /productlist */}
         <Route path="/cart" element={<CartItem />} />
       </Routes>
     </div>
