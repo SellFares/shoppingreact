@@ -1,3 +1,4 @@
+/* src/AboutUs.css */
 .landing-page-container {
     min-height: 100vh;
     background-size: cover;
@@ -10,45 +11,47 @@
     text-align: center;
     padding: 20px;
     color: white; /* Default text color, good for dark backgrounds */
+    box-sizing: border-box; /* Ensures padding doesn't add to height/width */
 }
 
 .landing-content {
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay for text readability */
-    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent overlay for text readability */
+    padding: 30px 40px; /* Adjusted padding */
     border-radius: 10px;
     max-width: 800px;
+    width: 90%; /* Responsive width */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .company-name {
-    font-size: 3.5em; /* Prominent company name */
+    font-size: 3em; /* Adjusted size for responsiveness */
     margin-bottom: 10px;
     font-weight: bold;
     color: #76ff03; /* A vibrant green */
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Softer shadow */
 }
 
 .company-tagline {
-    font-size: 1.5em;
-    margin-bottom: 25px;
+    font-size: 1.3em; /* Adjusted size */
+    margin-bottom: 20px; /* Adjusted spacing */
     font-style: italic;
     color: #f1f8e9; /* Light green/off-white */
 }
 
 .company-description {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 30px;
+    font-size: 1em; /* Adjusted size */
+    line-height: 1.7; /* Improved readability */
+    margin-bottom: 25px; /* Adjusted spacing */
     color: #e8f5e9; /* Lighter text for readability on dark overlay */
 }
 
 .get-started-button {
     background-color: #4CAF50; /* Green background */
     color: white;
-    padding: 15px 30px;
+    padding: 12px 25px; /* Adjusted padding */
     border: none;
     border-radius: 5px;
-    font-size: 1.2em;
+    font-size: 1.1em; /* Adjusted size */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     text-transform: uppercase;
@@ -59,4 +62,24 @@
 .get-started-button:hover {
     background-color: #45a049; /* Darker green on hover */
     transform: translateY(-2px);
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .company-name {
+        font-size: 2.2em;
+    }
+    .company-tagline {
+        font-size: 1.1em;
+    }
+    .company-description {
+        font-size: 0.9em;
+    }
+    .get-started-button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    .landing-content {
+        padding: 20px;
+    }
 }
