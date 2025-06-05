@@ -1,17 +1,18 @@
+// src/AboutUs.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AboutUs.css'; // We'll create/update this
+import './AboutUs.css'; // CSS for styling this landing page
 
 function AboutUs() {
     const navigate = useNavigate();
 
     const handleGetStartedClick = () => {
-        navigate('/products'); // Ensure this matches the route in App.jsx
+        navigate('/products'); // UPDATED to navigate to /products
     };
 
-    // The image URL should be reliable and publicly accessible
+    // Reliable and publicly accessible background image URL
     const backgroundImageUrl = 'https://images.unsplash.com/photo-1445905595283-21f8ae8a33d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80';
-    // Alternative: https://cdn.pixabay.com/photo/2017/07/25/08/08/medium-shot-2537329_1280.jpg (more garden-like)
+    // Alternative: https://cdn.pixabay.com/photo/2017/07/25/08/08/medium-shot-2537329_1280.jpg
 
     return (
         <div className="landing-page-container" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
