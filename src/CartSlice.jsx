@@ -1,8 +1,9 @@
+// src/CartSlice.jsx
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state for the cart
 const initialState = {
-  items: [], // Each item in this array will be an object: { name, image, price, quantity }
+  items: [], // Each item: { name, image, price, quantity }
 };
 
 export const CartSlice = createSlice({
@@ -10,7 +11,7 @@ export const CartSlice = createSlice({
   initialState,
   reducers: {
     // Reducer for adding an item to the cart
-    // action.payload is expected to be the full plant object from ProductList.jsx
+    // action.payload is expected to be the full plant object
     addItem: (state, action) => {
       const newItemFromPayload = action.payload;
       const existingItem = state.items.find(item => item.name === newItemFromPayload.name);
@@ -20,7 +21,6 @@ export const CartSlice = createSlice({
         existingItem.quantity++;
       } else {
         // If item doesn't exist, add it to the cart with quantity 1.
-        // We only store necessary info from the plant object.
         state.items.push({
           name: newItemFromPayload.name,
           image: newItemFromPayload.image,
@@ -60,7 +60,6 @@ export const CartSlice = createSlice({
 export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
 
 // Selector functions to get data from the cart state
-// These are typically used in components with useSelector hook
 
 // Selects all items currently in the cart
 export const selectCartItems = (state) => state.cart.items;
