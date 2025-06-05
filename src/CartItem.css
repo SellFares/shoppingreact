@@ -1,14 +1,8 @@
-/* General Cart Page Styles */
-.cart-page {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9; /* Light background for the page */
-    min-height: 100vh;
-}
+/* src/CartItem.css */
 
-/* Navbar styles specific to CartItem.jsx to avoid conflicts if ProductList.css is global */
-/* You might want to extract this to a common Header.css if used in multiple places */
-.navbar-cart {
-    background-color: #4CAF50; /* Green background */
+/* Header Styles for CartItem Page (using .navbar-cart-page for specificity) */
+.navbar-cart-page {
+    background-color: #4CAF50;
     color: #fff;
     padding: 10px 20px;
     display: flex;
@@ -17,41 +11,38 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand-cart {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-brand-link-cart {
+/* Re-using general navbar classes if styling is identical to ProductList header */
+/* Or use .navbar-cart-page .navbar-brand etc. for full specificity */
+.navbar-cart-page .navbar-brand .navbar-brand-link {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
 }
 
-.navbar-logo-cart {
+.navbar-cart-page .navbar-logo {
     height: 50px;
     margin-right: 10px;
 }
 
-.navbar-brand-cart h3 {
+.navbar-cart-page .navbar-brand h3 {
     margin: 0;
     font-size: 1.5em;
     color: white;
 }
 
-.navbar-brand-cart i {
+.navbar-cart-page .navbar-brand i {
     font-size: 0.9em;
     color: white;
     font-style: italic;
 }
 
-.navbar-links-cart {
+.navbar-cart-page .navbar-links {
     display: flex;
     align-items: center;
 }
 
-.navbar-link-cart {
+.navbar-cart-page .navbar-link {
     color: white;
     text-decoration: none;
     font-size: 1.2em;
@@ -61,21 +52,22 @@
     transition: background-color 0.3s ease;
 }
 
-.navbar-link-cart:hover {
+.navbar-cart-page .navbar-link:hover,
+.navbar-cart-page .navbar-link.active { /* Style for active/hover link */
     background-color: #45a049;
 }
 
-.cart-link-cart {
+.navbar-cart-page .cart-link {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.cart-link-cart svg {
+.navbar-cart-page .cart-link svg {
     fill: white;
 }
 
-.cart-badge-cart {
+.navbar-cart-page .cart-badge {
     position: absolute;
     top: -5px;
     right: -10px;
@@ -89,79 +81,88 @@
 }
 
 
-/* Cart Container */
+/* Cart Container & Items (styles from your existing CartItem.css are good, ensure they are here) */
+.cart-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
 .cart-container {
     max-width: 900px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 25px; /* Increased padding */
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Softer, wider shadow */
 }
 
 .cart-title {
     text-align: center;
     color: #333;
-    margin-bottom: 25px;
-    font-size: 2em;
+    margin-bottom: 30px; /* Increased margin */
+    font-size: 2.2em; /* Larger title */
+    font-weight: 600;
 }
 
 .cart-summary-total {
     font-size: 1.8em;
     font-weight: bold;
-    color: #28a745; /* Green color for total */
+    color: #28a745;
     text-align: center;
-    padding: 15px;
-    background-color: #e8f5e9; /* Light green background */
+    padding: 18px; /* Increased padding */
+    background-color: #e8f5e9;
     border-radius: 6px;
-    margin-bottom: 30px;
+    margin-bottom: 35px; /* Increased margin */
     border: 1px solid #c8e6c9;
 }
 
-/* Cart Items List */
 .cart-items-list {
     margin-bottom: 30px;
 }
 
 .cart-item-card {
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertically align items if they have different heights */
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin-bottom: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 20px; /* Increased padding */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07); /* Slightly enhanced shadow */
     transition: box-shadow 0.3s ease;
 }
 
 .cart-item-card:hover {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12); /* Enhanced hover */
 }
 
 .cart-item-image {
-    width: 120px; /* Increased size */
-    height: 120px; /* Increased size */
+    width: 100px; /* Adjusted for balance */
+    height: 100px;
     object-fit: cover;
     border-radius: 6px;
-    margin-right: 20px;
+    margin-right: 25px; /* Increased margin */
     border: 1px solid #eee;
 }
 
 .cart-item-details {
-    flex-grow: 1;
+    flex-grow: 1; /* Allow details to take up remaining space */
+    display: flex;
+    flex-direction: column; /* Stack details vertically */
 }
 
 .cart-item-name {
-    font-size: 1.4em; /* Increased size */
+    font-size: 1.3em; /* Adjusted size */
     color: #333;
     margin: 0 0 8px 0;
+    font-weight: 600;
 }
 
 .cart-item-price {
     font-size: 1em;
     color: #555;
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0; /* Increased margin */
 }
 
 .cart-item-quantity {
@@ -171,17 +172,18 @@
 }
 
 .cart-item-quantity span {
-    margin: 0 12px;
+    margin: 0 15px; /* Increased spacing */
     font-size: 1.1em;
-    min-width: 20px; /* Ensures space for number */
+    min-width: 25px;
     text-align: center;
+    font-weight: 500;
 }
 
 .quantity-btn {
-    background-color: #e0e0e0;
+    background-color: #f0f0f0; /* Lighter grey */
     color: #333;
-    border: none;
-    padding: 6px 10px; /* Adjusted padding */
+    border: 1px solid #ddd; /* Subtle border */
+    padding: 6px 12px;
     font-size: 1em;
     border-radius: 4px;
     cursor: pointer;
@@ -189,48 +191,49 @@
 }
 
 .quantity-btn:hover {
-    background-color: #bdbdbd;
+    background-color: #e0e0e0;
 }
 
 .cart-item-subtotal {
     font-size: 1.1em;
     font-weight: bold;
     color: #333;
-    margin: 0 0 12px 0;
+    margin: 0 0 15px 0; /* Increased margin */
 }
 
 .delete-btn {
-    background-color: #dc3545; /* Red color for delete */
+    background-color: #dc3545;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 9px 16px; /* Adjusted padding */
     font-size: 0.9em;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    align-self: flex-start; /* Align button to the start of its container if details is flex */
 }
 
 .delete-btn:hover {
-    background-color: #c82333; /* Darker red on hover */
+    background-color: #c82333;
 }
 
-/* Cart Actions (Continue Shopping, Checkout) */
 .cart-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 25px; /* Increased margin */
+    padding-top: 25px; /* Increased padding */
     border-top: 1px solid #e0e0e0;
 }
 
 .cart-action-button {
-    padding: 12px 25px;
-    font-size: 1em;
+    padding: 12px 28px; /* Adjusted padding */
+    font-size: 1.05em; /* Slightly larger font */
     border-radius: 5px;
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
 }
 
 .cart-action-button:hover {
@@ -238,7 +241,7 @@
 }
 
 .continue-shopping-btn {
-    background-color: #007bff; /* Blue */
+    background-color: #007bff;
     color: white;
 }
 
@@ -247,7 +250,7 @@
 }
 
 .checkout-btn {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
     color: white;
 }
 
@@ -255,19 +258,17 @@
     background-color: #218838;
 }
 
-/* Empty Cart Styles */
 .cart-empty {
     text-align: center;
-    padding: 50px 20px;
+    padding: 60px 20px; /* Increased padding */
 }
 
 .cart-empty p {
-    font-size: 1.2em;
+    font-size: 1.25em; /* Slightly larger */
     color: #555;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-/* Make the Start Shopping button in empty cart look like other action buttons */
 .cart-empty .cart-action-button {
     background-color: #28a745;
     color: white;
