@@ -1,3 +1,4 @@
+// src/CartItem.jsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,14 +7,14 @@ import {
     updateQuantity,
     selectCartItems,
     selectTotalPrice,
-    selectTotalCartItems // For the header cart count
-} from './store/CartSlice'; // Assuming CartSlice.jsx is in src/store/
-import './CartItem.css'; // We will create this CSS file next
+    selectTotalCartItems
+} from './CartSlice';
+import './CartItem.css';
 
 function CartItem() {
     const cartItems = useSelector(selectCartItems);
     const totalPrice = useSelector(selectTotalPrice);
-    const totalItemsInCart = useSelector(selectTotalCartItems); // For header
+    const totalItemsInCart = useSelector(selectTotalCartItems);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -25,7 +26,6 @@ function CartItem() {
         if (currentQuantity > 1) {
             dispatch(updateQuantity({ name, amount: -1 }));
         } else {
-            // If quantity is 1, decrementing means removing the item
             dispatch(removeItem(name));
         }
     };
@@ -35,7 +35,7 @@ function CartItem() {
     };
 
     const handleContinueShopping = () => {
-        navigate('/products'); // Navigate to the product listing page
+        navigate('/products'); // UPDATED to navigate to /products
     };
 
     const handleCheckout = () => {
@@ -44,28 +44,26 @@ function CartItem() {
 
     return (
         <div className="cart-page">
-            {/* Re-using the same header structure as in ProductList.jsx for consistency */}
-            <div className="navbar-cart"> {/* Using a slightly different class to avoid potential CSS conflicts if navbar styles differ */}
-                <div className="navbar-brand-cart">
-                    <Link to="/" className="navbar-brand-link-cart">
-                        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="Paradise Nursery Logo" className="navbar-logo-cart" />
+            {/* Header Section - Using specific class names for CartItem page header */}
+            <div className="navbar-cart-page">
+                <div className="navbar-brand"> {/* Re-using general brand class if styles are similar */}
+                    <Link to="/" className="navbar-brand-link">
+                        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="Paradise Nursery Logo" className="navbar-logo" />
                         <div>
                             <h3>Paradise Nursery</h3>
                             <i>Where Green Meets Serenity</i>
                         </div>
                     </Link>
                 </div>
-                <div className="navbar-links-cart">
-                    <Link to="/products" className="navbar-link-cart">Plants</Link>
-                    <Link to="/cart" className="navbar-link-cart cart-link-cart">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="38" width="38">
-                            <rect width="256" height="256" fill="none"></rect>
-                            <circle cx="80" cy="216" r="12"></circle>
-                            <circle cx="184" cy="216" r="12"></circle>
+                <div className="navbar-links">
+                    <Link to="/products" className="navbar-link">Plants</Link> {/* UPDATED link */}
+                    <Link to="/cart" className="navbar-link cart-link active"> {/* Active class for cart page */}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" height="38" width="38">
+                            <rect width="256" height="256" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle>
                             <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8"
                                 fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path>
                         </svg>
-                        {totalItemsInCart > 0 && <span className="cart-badge-cart">{totalItemsInCart}</span>}
+                        {totalItemsInCart > 0 && <span className="cart-badge">{totalItemsInCart}</span>}
                     </Link>
                 </div>
             </div>
