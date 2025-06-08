@@ -55,7 +55,7 @@ const handleCheckoutShopping = (e) => {
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount(cart).toFixed(2)} for ${totalItems} Items</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount(cart).toFixed(2)} for {totalItems} Items</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
