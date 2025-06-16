@@ -39,6 +39,17 @@ body {
    
 }
 
+.product-category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 5px 0px 5px;
+    padding: 5px;
+    font-size: 40px;
+    color: black;
+    text-decoration: overline underline black;
+}
+
 /* Product Grid */
 .product-grid {
     display:flex;
@@ -218,6 +229,12 @@ body {
   .product-button.added-to-cart {
     background-color: grey; /* Grey when product is added */
   }
+
+  .btn-disabled {
+    opacity: 0.5; /* Reduce opacity to visually indicate disabled state */
+    cursor: not-allowed; /* Change cursor to indicate that the button is not clickable */
+  }
+
   @media (max-width: 1200px) {
     .product-card {
       flex: 1 1 calc(33.33% - 20px); /* Adjust width for 3 cards per row with 20px gap on medium screens */

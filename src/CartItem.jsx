@@ -7,29 +7,53 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
+  const handleContinueShopping = (e) => {
+    onContinueShopping(e)
+  };
+
+  const calculateTotalQuantity = () => {
+    return cart.reduce((total_quantity, item) => {
+      return total_quantity + (item.quantity);
+    }, 0);
+  };
+
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    return cart.reduce((total, item) => {
+      return total + (item.cost * item.quantity);
+    }, 0);
   };
-
-  const handleContinueShopping = (e) => {
-   
-  };
-
-
 
   const handleIncrement = (item) => {
+    const updatedItem = { ...item, quantity: item.quantity + 1 };
+    dispatch(updateQuantity({ name: item.name, quantity: updatedItem.quantity }));
+    console.log('Incremented item:', updatedItem);
   };
 
   const handleDecrement = (item) => {
-   
+    if (item.quantity > 1) {
+      const updatedItem = { ...item, quantity: item.quantity - 1 };
+      dispatch(updateQuantity({ name: item.name, quantity: updatedItem.quantity }));
+      console.log('Decremented item:', updatedItem);
+    } else {
+      // If quantity is 1, remove the item from the cart
+      dispatch(removeItem(item.name));
+      console.log('Removed item:', item.name);
+    }
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
+    console.log('Removed item:', item.name);
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    return (item.cost * item.quantity).toFixed(2);
+  };
+
+  const handleCheckoutShopping = (e) => {
+    alert('Functionality to be added for future reference');
   };
 
   return (
@@ -41,7 +65,7 @@ const CartItem = ({ onContinueShopping }) => {
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
-              <div className="cart-item-cost">{item.cost}</div>
+              <div className="cart-item-cost">${item.cost}</div>
               <div className="cart-item-quantity">
                 <button className="cart-item-button cart-item-button-dec" onClick={() => handleDecrement(item)}>-</button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
