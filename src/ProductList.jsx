@@ -254,6 +254,10 @@ function ProductList({ onHomeClick }) {
         setShowCart(false);
     };
 
+    const calculateTotalQuantity = () => {
+        return CartItem ? CartItem.reduce((total, item) => total + item.quantity, 0) :0;
+    };
+
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
         setAddedToCart((prevState) => ({
