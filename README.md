@@ -7,3 +7,5 @@
 -A cart page which displays the products in the cart.  
 -The cart should have a card for each type of plant in the cart. Each card should have the thumbnail, the unit cost, the cost for all of the plants of that type and buttons to increase and decrease the quantity -along with Delete button.  
 -A Continue Shopping and Checkout buttons  
+# GitHub Pages link:  
+``` https://nerf-ivan.github.io/e-plantShopping/ ```  
