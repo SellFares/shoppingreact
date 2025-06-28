@@ -52,12 +52,13 @@ const CartItem = ({ onContinueShopping }) => {
       <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
       <div>
         {cart.map(item => (
+          <>
           <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
-            <div className="cart-item-details">
+            <div className="cart-item-details" style={{textAlign: 'center' }}>
               <div className="cart-item-name">{item.name}</div>
               <div className="cart-item-cost">{item.cost}</div>
-              <div className="cart-item-quantity">
+              <div className="cart-item-quantity" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <button className="cart-item-button cart-item-button-dec" onClick={() => handleDecrement(item)}>-</button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
                 <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrement(item)}>+</button>
@@ -66,6 +67,8 @@ const CartItem = ({ onContinueShopping }) => {
               <button className="cart-item-delete" onClick={() => handleRemove(item)}>Delete</button>
             </div>
           </div>
+          <br />
+          </>
         ))}
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
