@@ -6,14 +6,15 @@ import AboutUs from './AboutUs';
 
 function App() {
   
-  const [showProductList, setShowProductList] = useState(false);
+  const [showProductList, setShowProductList] = useState();
 
   const handleGetStartedClick = () => {
     setShowProductList(true);
   };
 
-  const handleHomeClick = () => {
+  const handleHomeClick = (e) => {
     setShowProductList(false);
+    console.log(e)
   };
 
   return (
@@ -37,7 +38,7 @@ function App() {
 
       </div>
       <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
+        <ProductList/>
       </div>
     </div>
   );
