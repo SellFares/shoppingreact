@@ -20,7 +20,7 @@ function ProductList({ onHomeClick }) {
         color: '#fff!important',
         padding: '15px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignIems: 'center',
         fontSize: '20px',
     }
@@ -34,7 +34,7 @@ function ProductList({ onHomeClick }) {
         color: 'white',
         fontSize: '30px',
         textDecoration: 'none',
-        textAlign: 'center'
+        fontWeight: 'bold'
     }
 
     const handleHomeClick = (e) => {
@@ -70,7 +70,6 @@ function ProductList({ onHomeClick }) {
             <div className="navbar" style={styleObj}>
                 <div className="tag">
                     <div className="luxury">
-                        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
                         <a href="/" onClick={(e) => handleHomeClick(e)}>
                             <div>
                                 <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
@@ -129,11 +128,26 @@ function ProductList({ onHomeClick }) {
                             <div className="product-list">
                             {plantInfo.plants.map((plant, plantIndex) => (
                                 <div className="product-card" key={plantIndex}>
-                                <div>
+                                <div style={{
+                                    width: '300px',
+                                    height: '300px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#f5f5f5',
+                                    border: '1px solid #ddd',
+                                    borderRadius: '8px',
+                                    margin: 'auto'
+                                }}>
                                     <img 
                                         className="product-image" 
                                         src={plant.image}
                                         alt={plant.name}
+                                        style={{
+                                            maxWidth: '100%',
+                                            maxHeight: '100%',
+                                            objectFit: 'cover'
+                                        }}
                                     />
                                 </div>
                                 <div className="product-title">{plant.name}</div>
