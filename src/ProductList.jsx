@@ -103,12 +103,12 @@ function ProductList({ onHomeClick }) {
                               backgroundColor: 'red',
                               color: 'white',
                               borderRadius: '50%',
-                              width: '20px',
-                              height: '20px',
+                              width: '40px',
+                              height: '40px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '12px',
+                              fontSize: '22px',
                               fontWeight: 'bold'
                             }}>
                               {totalItems}
@@ -129,25 +129,35 @@ function ProductList({ onHomeClick }) {
                             <div className="product-list">
                             {plantInfo.plants.map((plant, plantIndex) => (
                                 <div className="product-card" key={plantIndex}>
-                                <img 
-                                    className="product-image" 
-                                    src={plant.image}
-                                    alt={plant.name}
-                                />
-                                <div className="product-title">{plant.name}</div>
-                                <div className="product-description">{plant.description}</div>
-                                <div className="product-cost">${plant.cost}</div>
-                                <button
-                                    className="product-button"
-                                    onClick={() => handleAddToCart(plant)}
-                                >
-                                    Add to Cart
-                                </button>
+                                    <img 
+                                        className="product-image" 
+                                        src={plant.image}
+                                        alt={plant.name}
+                                    />
+                                    <div className="product-title">{plant.name}</div>
+                                    <div className="product-description">{plant.description}</div>
+                                    <div className="product-cost">{plant.cost}</div>
+                                    <button
+                                        className="product-button"
+                                        onClick={() => handleAddToCart(plant)}
+                                    >
+                                        Add to Cart
+                                    </button>
+                                    {addedToCart[plant.name] && (
+                                        <span 
+                                            className="fade-checkmark"
+                                            style={{
+                                                color: 'green',
+                                                fontSize: '30px',
+                                        }}>
+                                        ✓
+                                        </span>
+                                    )}
                                 </div>
                             ))}
                             </div>
                         </div>
-                        ))}
+                         ))}
                     </div>
                 ) : (
                     <CartItem onContinueShopping={handleContinueShopping} />
