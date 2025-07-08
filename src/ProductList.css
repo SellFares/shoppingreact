@@ -270,7 +270,3 @@ body {
       transform: scale(0.8);
     }
   }
-
-  .fade-checkmark {
-    animation: fadeInOut 0.5s ease-in-out forwards;
-  }
