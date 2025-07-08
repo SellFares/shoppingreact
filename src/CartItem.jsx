@@ -5,7 +5,7 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
 // const CartItem = ({ onContinueShopping }) => {
-const CartItem = () => {
+const CartItem = ({ onContinueShopping }) => {
     const items = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
 
@@ -19,10 +19,6 @@ const CartItem = () => {
         });
 
         return total.toFixed(2); // Return total formatted as string with 2 decimal places
-    };
-
-    const handleContinueShopping = (e) => {
-       onContinueShopping(e);
     };
 
     const handleIncrement = (item) => {
@@ -52,10 +48,12 @@ const CartItem = () => {
     };
 
     const handleCheckoutShopping = (e) => {
-        alert('Functionality to be added for future reference');
+        alert('Thank you for shopping with us');
       };
       
-
+    const handleContinueShopping = (e) => {
+   
+    };
     return (
         <div className="cart-container">
             <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
@@ -79,7 +77,7 @@ const CartItem = () => {
             </div>
             <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
             <div className="continue_shopping_btn">
-                <button className="get-started-button" onClick={()=>handleContinueShopping(e)}>Continue Shopping</button>
+                <button className="get-started-button" onClick={(e)=>handleContinueShopping(e)}>Continue Shopping</button>
                 <br />
                 <button className="get-started-button1" onClick={handleCheckoutShopping}>Checkout</button>
                 

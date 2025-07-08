@@ -265,9 +265,9 @@ function ProductList({ onHomeClick }) {
             [plant.name]: true,
         }));
     };
-
-    const calculateTotalQuantity = () => {
-    return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+    const handleContinueShopping = (e) => {
+        e.preventDefault();
+        setShowCart(false);
     };
 
     return (
@@ -319,8 +319,7 @@ function ProductList({ onHomeClick }) {
 
                 </div>
             ) : (
-                // <CartItem onContinueShopping={handleContinueShopping} />
-                <CartItem />
+                 <CartItem onContinueShopping={handleContinueShopping} />
             )}
 
             {!showPlants ? (
