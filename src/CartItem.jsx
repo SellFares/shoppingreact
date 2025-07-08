@@ -11,15 +11,18 @@ const CartItem = () => {
 
     // Calculate total amount for all products in the cart
     const calculateTotalAmount = () => {
-        return items.reduce((total, item) => {
-            const price = parseFloat(item.cost.substring(1));
-            return total + (price * item.quantity);
-        }, 0).toFixed(2);
+        let total = 0;
+
+        items.forEach((item) => {
+            const price = parseFloat(item.cost.substring(1)); // Remove "$" and convert to number
+            total += price * item.quantity; // Add to total
+        });
+
+        return total.toFixed(2); // Return total formatted as string with 2 decimal places
     };
 
     const handleContinueShopping = (e) => {
-        e.preventDefault();
-        setShowCart(false);
+       onContinueShopping(e);
     };
 
     const handleIncrement = (item) => {
@@ -39,7 +42,7 @@ const CartItem = () => {
     };
 
     const handleRemove = (item) => {
-        dispatch(removeItem(item.name));
+        dispatch(removeItem({ name: item.name }));
     };
 
     // Calculate total cost based on quantity for an item
@@ -48,7 +51,7 @@ const CartItem = () => {
         return (price * item.quantity).toFixed(2);
     };
 
-    const handleCheckoutShopping = () => {
+    const handleCheckoutShopping = (e) => {
         alert('Functionality to be added for future reference');
       };
       
@@ -60,7 +63,7 @@ const CartItem = () => {
                 {items.map(item => (
                     <div className="cart-item" key={item.name}>
                         <img className="cart-item-image" src={item.image} alt={item.name} />
-                        <div className="cart-item-details">
+                        <div className="cart-item-details" >
                             <div className="cart-item-name">{item.name}</div>
                             <div className="cart-item-cost">{item.cost}</div>
                             <div className="cart-item-quantity">
@@ -76,9 +79,10 @@ const CartItem = () => {
             </div>
             <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
             <div className="continue_shopping_btn">
-                {/* <button className="get-started-button" onClick={()=>handleContinueShopping(e)}>Continue Shopping</button> */}
+                <button className="get-started-button" onClick={()=>handleContinueShopping(e)}>Continue Shopping</button>
                 <br />
                 <button className="get-started-button1" onClick={handleCheckoutShopping}>Checkout</button>
+                
             </div>
         </div>
     );

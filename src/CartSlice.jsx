@@ -14,11 +14,13 @@ export const CartSlice = createSlice({
         } else {
             state.items.push({ name, image, cost, quantity: 1 });
         }
+      },
+
+      removeItem: (state, action) => {
+      const nameToRemove = action.payload.name;
+      state.items = state.items.filter(item => item.name !== nameToRemove);
     },
-    removeItem: (state, action) => {
-        console.log("REMOVE PAYLOAD:", action.payload);
-        state.items = state.items.filter(item => item.name !== action.payload);
-    },
+    
     updateQuantity: (state, action) => {
         const { name, quantity } = action.payload || {};
         console.log("UPDATE PAYLOAD:", action.payload);
