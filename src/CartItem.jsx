@@ -44,6 +44,9 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    let total = 0;
+    total = parseFloat(item.cost.substring(1)) * item.quantity;
+    return total;
   };
 
   return (
@@ -71,6 +74,7 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
+        
         <button className="get-started-button1" onClick={(e) =>handleCheckoutShopping(e)}>Checkout</button>
       </div>
     </div>
