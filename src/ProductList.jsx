@@ -278,7 +278,7 @@ function ProductList({ onHomeClick }) {
                 <div>
                     <h2>{category.category}</h2>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-                        {category.map((plant) =>
+                        {category.plants.map((plant) =>
                         <div style={{
                             border: "1px solid #ccc",
                             borderRadius: "8px",
