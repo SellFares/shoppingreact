@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
+    const cart = useSelector(state => state.cart.items);
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -252,6 +257,18 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         setShowCart(false);
     };
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
+
+        setAddedToCart((prevState) => ({ // Update the local state to reflect that the product has been added
+            ...prevState, // Spread the previous state to retain existing entries
+            [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
+        }));
+    };
+    const calculateTotalQuantity = () => {
+        return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
+    };
+    var cartQuantity = calculateTotalQuantity();
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -269,17 +286,21 @@ function ProductList({ onHomeClick }) {
                 </div>
                 <div style={styleObjUl}>
                     <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
-                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path></svg></h1></a></div>
+                    <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68"><rect width="156" height="156" fill="none"></rect><circle cx="80" cy="216" r="12"></circle><circle cx="184" cy="216" r="12"></circle><path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" id="mainIconPathAttribute"></path><text x="128" y="130" textAnchor="middle" fill="#faf9f9" fontSize="70" fontWeight="bold">
+  {cartQuantity}
+</text></svg></h1></a></div>
                 </div>
             </div>
             {!showCart ? (
                 <div className="product-grid">
-                {plantsArray.map((category) => 
-                <div>
-                    <h2>{category.category}</h2>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-                        {category.plants.map((plant) =>
-                        <div style={{
+                {plantsArray.map((category, index) => 
+                <div key={index}>
+                    <div className='plantname_heading'>
+                    <h2 className='plant_heading'>{category.category}</h2>
+                    </div>
+                    <div className='product-list'>
+                        {category.plants.map((plant, plantIndex) =>
+                        <div key={plantIndex} style={{
                             border: "1px solid #ccc",
                             borderRadius: "8px",
                             padding: "16px",
@@ -287,10 +308,13 @@ function ProductList({ onHomeClick }) {
                             textAlign: "center",
                             boxShadow: "0 2px 6px rgba(0,0,0,0.07)"
                           }}>
-                            <img src={plant.image} alt={plant.name} style={{ width: "120px", height: "120px", objectFit: "cover", borderRadius: "6px" }} ></img>
-                            <h3 style={{ margin: "10px 0 4px 0" }}>{plant.name}</h3>
-                            <p style={{ fontSize: "0.95em", color: "#777" }}>{plant.description}</p>
-                            <div style={{ fontWeight: "bold", marginTop: "6px" }}>{plant.cost}</div>
+                            <img src={plant.image} alt={plant.name} className='product-image' ></img>
+                            <h3 className='product-title'>{plant.name}</h3>
+                            <p>{plant.description}</p>
+                            <div className='product-price'>{plant.cost}</div>
+                            <button className={`product-button ${addedToCart[plant.name] ? 'added' : ''}`} onClick={()=> handleAddToCart(plant)} >
+                                {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
+                            </button>
                         </div>
                      )}
                     </div>
