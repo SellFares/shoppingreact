@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import cartReducer from './features/cart/CartSlice';
+import cartReducer from './CartSlice.jsx';
 
 const store = configureStore({
     reducer: {
