@@ -264,6 +264,13 @@ function ProductList({ onHomeClick }) {
         }));
     };
 
+    const calculateTotalQuantity = () => {
+        return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+    };
+
+    const isInCart = CartItems.some(item => item.name === product.name);
+    <Button disabled={isInCart}>{isInCart ? 'Added to Cart' : 'Add to Cart'}</Button>
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
