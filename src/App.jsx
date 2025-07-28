@@ -25,7 +25,12 @@ function App() {
          <h1>Welcome To Paradise Nursery</h1>
           <div className="divider"></div>
           <p>Where Green Meets Serenity</p>
-         
+         <iframe
+        src="https://copilotstudio.microsoft.com/environments/Default-9d95cde8-c4ec-4b9c-8ee2-249d44b79acf/bots/cre86_hrLegalAssistantRjV3x1/webchat?__version__=2"
+        width="100%"
+        height="600px"
+        frameborder="0"
+        ></iframe>
           <button className="get-started-button" onClick={handleGetStartedClick}>
             Get Started
           </button>
