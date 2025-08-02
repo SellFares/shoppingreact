@@ -1,49 +1,31 @@
-
-import React, { useState } from 'react';
-import ProductList from './ProductList';
-import './App.css';
-import AboutUs from './AboutUs';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import ProductList from './ProductList.jsx';
+import CartItem from './CartItem.jsx';
 
 function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
-
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
-  };
-
-  const handleHomeClick = () => {
-    setShowProductList(false);
-  };
-
   return (
-    <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
-          </div>
-          </div>
+    <Router>
+      <div className="navbar">
+        <div className="tag">
+          <Link to="/" className="tag_home_link">
+            <h3>Home</h3>
+          </Link>
+        </div>
+        <div className="luxury">Plant Shopping Cart</div>
+        <div className="cart">
+          <Link to="/cart" className="tag_home_link">
+            <h3>Cart</h3>
+          </Link>
+        </div>
+      </div>
 
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
-    </div>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/cart" element={<CartItem />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-
-
