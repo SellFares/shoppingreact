@@ -238,8 +238,8 @@ function ProductList({ onHomeClick }) {
         e.preventDefault();
         onHomeClick();
     };
-    const handleAddToCart = (plant) => {
-        dispatch(addItem(plant)); // Dispatch the action to add the product to the cart (Redux action)
+    const handleAddToCart = (name) => {
+        dispatch(addItem(action.payload)); // Dispatch the action to add the product to the cart (Redux action)
         setAddedToCart((prevState) => ({ // Update the local state to reflect that the product has been added
           ...prevState, // Spread the previous state to retain existing entries
           [plant.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
