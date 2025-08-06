@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import './ProductList.css';
 import CartItem from './CartItem';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice'; 
 import PropTypes from 'prop-types';
 
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
-    const [addedToCart, setAddedToCart] = useState({});
+    const cartItems = useSelector(state => state.cart.items);
     const [showCart, setShowCart] = useState(false);
 
     const handleAddToCart = (plant) => {
         dispatch(addItem(plant));
-        setAddedToCart(prev => ({
-            ...prev,
-            [plant.name]: true
-        }));
+    };
+
+    const isInCart = (plantName) => {
+        return cartItems.some(item => item.name === plantName);
     };
 
     const handleHomeClick = (e) => {
@@ -284,11 +284,11 @@ function ProductList({ onHomeClick }) {
                                         <p>{plant.description}</p>
                                         <p className="product-price">{plant.cost}</p>
                                         <button
-                                            className={`product-button ${addedToCart[plant.name] ? 'added-to-cart' : ''}`}
+                                            className={`product-button ${isInCart(plant.name) ? 'added-to-cart' : ''}`}
                                             onClick={() => handleAddToCart(plant)}
-                                            disabled={addedToCart[plant.name]}
+                                            disabled={isInCart(plant.name)}
                                         >
-                                            {addedToCart[plant.name] ? 'Added' : 'Add to Cart'}
+                                            {isInCart(plant.name) ? 'Added' : 'Add to Cart'}
                                         </button>
                                     </div>
                                 ))}
