@@ -1,3 +1,4 @@
+// src/cartSlice.jsx
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -19,7 +20,7 @@ const cartSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
-      const itemName = action.payload;
+      const itemName = action.payload; // now expects a string
       state.items = state.items.filter((item) => item.name !== itemName);
     },
     clearCart: (state) => {
