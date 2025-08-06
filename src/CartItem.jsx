@@ -4,12 +4,11 @@ import { removeItem, updateQuantity } from "./CartSlice";
 import "./CartItem.css";
 import { useNavigate } from "react-router-dom";
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = () => {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     return cart.reduce(
       (total, item) =>
@@ -18,8 +17,8 @@ const CartItem = ({ onContinueShopping }) => {
     );
   };
 
-  const handleContinueShopping = (e) => {
-    navigate("/product-list");
+  const handleContinueShopping = () => {
+    navigate("/product-list"); // make sure this route exists in App.jsx
   };
 
   const handleIncrement = (item) => {
@@ -35,19 +34,16 @@ const CartItem = ({ onContinueShopping }) => {
     );
   };
 
-  // Handle remove item
   const handleRemove = (item) => {
     dispatch(removeItem({ name: item.name }));
   };
 
-  // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
     return parseFloat(item.cost.replace("$", "")) * item.quantity;
   };
 
-  // Handle checkout
   const handleCheckout = () => {
-    alert("Coming soon!");
+    alert("Coming Soon!");
   };
 
   return (
@@ -55,8 +51,11 @@ const CartItem = ({ onContinueShopping }) => {
       <h2 style={{ color: "black" }}>
         Total Cart Amount: ${calculateTotalAmount().toFixed(2)}
       </h2>
-      <div>
-        {cart.map((item) => (
+
+      {cart.length === 0 ? (
+        <p style={{ color: "black" }}>Your cart is empty.</p>
+      ) : (
+        cart.map((item) => (
           <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
@@ -90,21 +89,21 @@ const CartItem = ({ onContinueShopping }) => {
               </button>
             </div>
           </div>
-        ))}
-      </div>
-      <div
-        style={{ marginTop: "20px", color: "black" }}
-        className="total_cart_amount"
-      ></div>
-      <div className="continue_shopping_btn">
+        ))
+      )}
+
+      <div className="continue_shopping_btn" style={{ marginTop: "20px" }}>
         <button
           className="get-started-button"
-          onClick={(e) => handleContinueShopping(e)}
+          onClick={handleContinueShopping}
         >
           Continue Shopping
         </button>
         <br />
-        <button className="get-started-button1" onClick={handleCheckout}>
+        <button
+          className="get-started-button1"
+          onClick={handleCheckout}
+        >
           Checkout
         </button>
       </div>
