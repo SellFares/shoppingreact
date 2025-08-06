@@ -18,10 +18,10 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/">
       <div className="app-container">
-        {!showProductList && (
-          <div className={`landing-page ${showProductList ? "fade-out" : ""}`}>
+        {!showProductList ? (
+          <div className={`landing-page`}>
             <div className="background-image"></div>
             <div className="content">
               <div className="landing_content">
@@ -40,13 +40,14 @@ function App() {
               </div>
             </div>
           </div>
-        )}
-        {showProductList && (
+        ) : (
           <div className="product-list-container visible">
             <Routes>
+              <Route path="/" element={<Navigate to="/product-list" replace />} />
               <Route path="/product-list" element={<ProductList />} />
               <Route path="/cart" element={<CartItem />} />
-              <Route path="*" element={<Navigate to="/product-list" />} />
+              {/* Redirect any unknown path to product list */}
+              <Route path="*" element={<Navigate to="/product-list" replace />} />
             </Routes>
           </div>
         )}
