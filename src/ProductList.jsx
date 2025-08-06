@@ -18,6 +18,10 @@ function ProductList({ onHomeClick }) {
         return cartItems.some(item => item.name === plantName);
     };
 
+    const getTotalCartItems = () => {
+        return cartItems.reduce((total, item) => total + item.quantity, 0);
+    };
+
     const handleHomeClick = (e) => {
         e.preventDefault();
         onHomeClick();
@@ -262,8 +266,27 @@ function ProductList({ onHomeClick }) {
                 <div style={styleObjUl}>
                     <div><a href="#" onClick={handlePlantsClick} style={styleA}>Plants</a></div>
                     <div><a href="#" onClick={handleCartClick} style={styleA}>
-                        <h1 className='cart'>
+                        <h1 className='cart' style={{ position: 'relative' }}>
                             🛒
+                            {getTotalCartItems() > 0 && (
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '-5px',
+                                    right: '-10px',
+                                    backgroundColor: 'red',
+                                    color: 'white',
+                                    borderRadius: '50%',
+                                    width: '20px',
+                                    height: '20px',
+                                    fontSize: '12px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold'
+                                }}>
+                                    {getTotalCartItems()}
+                                </span>
+                            )}
                         </h1>
                     </a></div>
                 </div>
