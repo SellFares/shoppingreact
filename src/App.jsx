@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Routes,
   Navigate,
@@ -18,10 +18,10 @@ function App() {
   };
 
   return (
-    <Router basename="/">
+    <Router>
       <div className="app-container">
         {!showProductList ? (
-          <div className={`landing-page`}>
+          <div className="landing-page">
             <div className="background-image"></div>
             <div className="content">
               <div className="landing_content">
@@ -46,7 +46,6 @@ function App() {
               <Route path="/" element={<Navigate to="/product-list" replace />} />
               <Route path="/product-list" element={<ProductList />} />
               <Route path="/cart" element={<CartItem />} />
-              {/* Redirect any unknown path to product list */}
               <Route path="*" element={<Navigate to="/product-list" replace />} />
             </Routes>
           </div>
