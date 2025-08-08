@@ -1,115 +1,51 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removeItem, updateQuantity } from "./CartSlice";
-import "./CartItem.css";
-import { useNavigate } from "react-router-dom";
+import { createSlice } from '@reduxjs/toolkit';
 
-const CartItem = ({ onContinueShopping }) => {
-  const cart = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+export const CartSlice = createSlice({
+    name: 'cart',
+    initialState: {
+        items: [], // Initialize items as an empty array
+        numOfItems: 0 // Number of items multiplied by their quantity
+    },
 
-  // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
-    return cart.reduce(
-      (total, item) =>
-        total + parseFloat(item.cost.replace("$", "")) * item.quantity,
-      0
-    );
-  };
+    reducers: {
+        addItem: (state, action) => {
+            const { name, image, cost } = action.payload;
+            const existingItem = state.items.find(item => item.name === name);
 
-  const handleContinueShopping = (e) => {
-    navigate("/product-list");
-  };
+            if (existingItem) {
+                // In existing items, quantity is already added as property
+                existingItem.quantity++;
+            } else {
+                state.items.push({ name, image, cost, quantity: 1 });
+            }
 
-  const handleIncrement = (item) => {
-    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
-  };
+            state.numOfItems += 1;
+        },
 
-  const handleDecrement = (item) => {
-    dispatch(
-      updateQuantity({
-        name: item.name,
-        quantity: Math.max(1, item.quantity - 1),
-      })
-    );
-  };
+        removeItem: (state, action) => {
+            const { name, quantity } = action.payload;
+            state.items = state.items.filter(item => item.name !== name);
+            state.numOfItems -= quantity;
 
-  // Handle remove item
-  const handleRemove = (item) => {
-    dispatch(removeItem({ name: item.name }));
-  };
+            // Just to be sure... I hate negative numbers
+            if (state.numOfItems < 0) {
+                state.numOfItems = 0;
+            }
+        },
 
-  // Calculate total cost based on quantity for an item
-  const calculateTotalCost = (item) => {
-    return parseFloat(item.cost.replace("$", "")) * item.quantity;
-  };
+        updateQuantity: (state, action) => {
+            const { name, quantity } = action.payload;
+            const existingItem = state.items.find(item => item.name === name);
 
-  // Handle checkout
-  const handleCheckout = () => {
-    alert("Coming soon!");
-  };
+            if (existingItem) {
+                const differenceQuantity = quantity - existingItem.quantity;
+                state.numOfItems += differenceQuantity;
+                existingItem.quantity = quantity;
+            }
+        },
+    },
+});
 
-  return (
-    <div className="cart-container">
-      <h2 style={{ color: "black" }}>
-        Total Cart Amount: ${calculateTotalAmount().toFixed(2)}
-      </h2>
-      <div>
-        {cart.map((item) => (
-          <div className="cart-item" key={item.name}>
-            <img className="cart-item-image" src={item.image} alt={item.name} />
-            <div className="cart-item-details">
-              <div className="cart-item-name">{item.name}</div>
-              <div className="cart-item-cost">{item.cost}</div>
-              <div className="cart-item-quantity">
-                <button
-                  className="cart-item-button cart-item-button-dec"
-                  onClick={() => handleDecrement(item)}
-                >
-                  -
-                </button>
-                <span className="cart-item-quantity-value">
-                  {item.quantity}
-                </span>
-                <button
-                  className="cart-item-button cart-item-button-inc"
-                  onClick={() => handleIncrement(item)}
-                >
-                  +
-                </button>
-              </div>
-              <div className="cart-item-total">
-                Total: ${calculateTotalCost(item).toFixed(2)}
-              </div>
-              <button
-                className="cart-item-delete"
-                onClick={() => handleRemove(item)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div
-        style={{ marginTop: "20px", color: "black" }}
-        className="total_cart_amount"
-      ></div>
-      <div className="continue_shopping_btn">
-        <button
-          className="get-started-button"
-          onClick={(e) => handleContinueShopping(e)}
-        >
-          Continue Shopping
-        </button>
-        <br />
-        <button className="get-started-button1" onClick={handleCheckout}>
-          Checkout
-        </button>
-      </div>
-    </div>
-  );
-};
+export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
 
-export default CartItem;
+export default CartSlice.reducer;
