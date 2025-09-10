@@ -288,12 +288,19 @@ function ProductList({ onHomeClick }) {
                                             alt={plant.name}
                                         />
                                         <div className="product-title">{plant.name}</div>   {/* displayin the plant name */}
+                                        
+                                        <div className="product-description">{plant.description}</div>   {/* displaying plant description */}
+                                        <button 
+                                            className="product-button"
+                                            onClick={() => handleAddToCart(plant)}
+                                        >
+                                            Add to Cart
+                                        </button>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ))}
-
                 </div>
             ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
