@@ -37,13 +37,14 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleRemove = (item) => {
-      removeItem(item);
-    }
-  }
+    // Remove the item from the cart
+    dispatch(removeItem(item));
+  };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-    item.forEach((item))
+    // Calculate total cost for a single item
+    return parseFloat(item.cost.substring(1)) * item.quantity;
   };
 
   return (
