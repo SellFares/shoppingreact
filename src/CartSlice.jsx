@@ -15,7 +15,6 @@ export const CartSlice = createSlice({
       }else{
         state.items.push({ name, image, cost, quantity: 1 });         // if item does not exist, add it to the cart with quantity 1
       }
-      
     },
     removeItem: (state, action) => {
     },
