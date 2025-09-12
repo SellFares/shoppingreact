@@ -1,49 +1,54 @@
-
 import React, { useState } from 'react';
 import ProductList from './ProductList';
-import './App.css';
-import AboutUs from './AboutUs';
+import CartItem from './CartItem';
 
-function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
+const App = () => {
+  const [showCart, setShowCart] = useState(false); // View toggle
 
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
+  const handleViewCart = () => {
+    setShowCart(true);
   };
 
-  const handleHomeClick = () => {
-    setShowProductList(false);
+  const handleContinueShopping = () => {
+    setShowCart(false);
   };
 
   return (
-    <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
-          </div>
-          </div>
+    <div className="App">
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '1rem',
+          backgroundColor: '#e3f2e1',
+        }}
+      >
+        <h1>🌿 Plant Shop</h1>
+        <button
+          onClick={handleViewCart}
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '1rem',
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+          }}
+        >
+          🛒 View Cart
+        </button>
+      </header>
 
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
+      <main>
+        {showCart ? (
+          <CartItem onContinueShopping={handleContinueShopping} />
+        ) : (
+          <ProductList />
+        )}
+      </main>
     </div>
   );
-}
+};
 
 export default App;
-
-
-
