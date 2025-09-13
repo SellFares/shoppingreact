@@ -1,54 +1,47 @@
+
 import React, { useState } from 'react';
 import ProductList from './ProductList';
-import CartItem from './CartItem';
+import './App.css';
+import AboutUs from './AboutUs';
 
-const App = () => {
-  const [showCart, setShowCart] = useState(false); // View toggle
 
-  const handleViewCart = () => {
-    setShowCart(true);
+function App() {
+  
+  const [showProductList, setShowProductList] = useState(false);
+
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
   };
 
-  const handleContinueShopping = () => {
-    setShowCart(false);
+  const handleHomeClick = () => {
+    setShowProductList(false);
   };
 
   return (
-    <div className="App">
-      <header
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '1rem',
-          backgroundColor: '#e3f2e1',
-        }}
-      >
-        <h1>🌿 Plant Shop</h1>
-        <button
-          onClick={handleViewCart}
-          style={{
-            padding: '0.5rem 1rem',
-            fontSize: '1rem',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
-        >
-          🛒 View Cart
-        </button>
-      </header>
+    <div className="app-container">
+      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
+        <div className="background-image"></div>
+        <div className="content">
+         <div className="landing_content">
+         <h1>Welcome To The Green Nook</h1>
+          <div className="divider"></div>
+          <p>Rooted in Nature, Grown with Love.</p>
+         
+          <button className="get-started-button" onClick={handleGetStartedClick}>
+            Get Started
+          </button>
+         </div>
+          <div className="aboutus_container">
+          <AboutUs/>
+          </div>
+          </div>
 
-      <main>
-        {showCart ? (
-          <CartItem onContinueShopping={handleContinueShopping} />
-        ) : (
-          <ProductList />
-        )}
-      </main>
+      </div>
+      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
+        <ProductList onHomeClick={handleHomeClick}/>
+      </div>
     </div>
   );
-};
+}
 
 export default App;
