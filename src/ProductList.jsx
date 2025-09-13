@@ -4,6 +4,7 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem, incrementQuantity, decrementQuantity } from './CartSlice';
 
+
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
@@ -237,12 +238,29 @@ function ProductList({ onHomeClick }) {
         color: 'white',
         fontSize: '30px',
         textDecoration: 'none',
+
+
+
+
+
     }
+
 
     const handleHomeClick = (e) => {
         e.preventDefault();
         onHomeClick();
     };
+
+
+
+
+
+
+
+
+
+
+
 
 
     const handleAddToCart = (product) => {
@@ -294,6 +312,19 @@ function ProductList({ onHomeClick }) {
                     )}
                     </h1></a></div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
             {!showCart ? (
                 <div className="product-grid">
@@ -330,6 +361,10 @@ function ProductList({ onHomeClick }) {
             )}
         </div>
     );
+
+
+
+
 }
 
 export default ProductList;
