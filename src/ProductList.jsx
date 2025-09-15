@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import './ProductList.css'
 import CartItem from './CartItem';
-import { useDispatch } from "react-redux";
 import { addItem } from "./CartSlice";
 
 function ProductList({ onHomeClick }) {
