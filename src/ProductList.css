@@ -80,17 +80,34 @@ body {
 
 /* Product Card */
 .product-card {
-  flex: 0 0 calc(25% - 20px); 
-  max-width: calc(25% - 20px);
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  text-align: center;
-  position: relative;
-  transition: transform 0.3s ease-in-out;
+    flex: 0 0 calc(45% - 20px); /* Make cards take ~45% width when two per row */
+    max-width: calc(45% - 20px);
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    gap: 20px;
 }
+
+/* Adjust layout for larger screens with 3 cards */
+@media (min-width: 1200px) {
+  .product-card {
+    flex: 0 0 calc(30% - 20px);
+    max-width: calc(30% - 20px);
+  }
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .product-card {
+    flex: 1 1 calc(90% - 20px); /* Full width on mobile */
+    max-width: calc(90% - 20px);
+  }
+}
+
 
 .product-card:hover {
   transform: scale(1.05);
