@@ -35,7 +35,7 @@ const handleContinueShopping = (e) => {
 
   // Calculate total cost based on quantity for an item
    const calculateTotalCost = (item) => {
-    const cost = parseFloat(item.cost.substring(1)); // Remove '$' and convert to number
+    const cost = parseFloat(item); // Remove '$' and convert to number
     return (cost * item.quantity).toFixed(2); // Return subtotal as a string with 2 decimal places
   };
 
