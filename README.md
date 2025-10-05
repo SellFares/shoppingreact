@@ -1,6 +1,6 @@
-# e-plantShopping
+# e-plantShopping - typo fixed
 
-This repository contains the e-plantShopping demo application (React + Vite) used for learning Redux and basic frontend patterns.
+This repository contains the e-plantShopping - typo fixed demo application (React + Vite) used for learning Redux and basic frontend patterns.
 
 Contents:
 - `src/` - React source files
