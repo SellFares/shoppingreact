@@ -9,27 +9,48 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    let total = 0;
+
+    cart.forEach((item) => {
+      const costValue = parseFloat(item.cost.substring(1)); // remove '$'
+      total += costValue * item.quantity;
+    });
+
+    return total.toFixed(2);   
   };
 
   const handleContinueShopping = (e) => {
-   
+   alert('Click on Plants Tab to continue shopping!')
   };
 
 
 
   const handleIncrement = (item) => {
-  };
+    const itemToIncrease = state.items.find(item=>item.name===name);    
+        if(itemToIncrease)
+            itemToIncrease.quantity +=1;
+};
 
   const handleDecrement = (item) => {
-   
+   const itemToDecrease = state.items.find(item=>item.name===name);    
+        if(itemToDecrease && itemToDecrease.quantity > 0)
+            itemToDecrease.quantity -=1;
   };
 
   const handleRemove = (item) => {
-  };
+    dispatch(removeItem(item));
+};
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    let total = 0;
+
+    cart.forEach((item) => {
+      const costValue = parseFloat(item.cost.substring(1)); // remove '$'
+      total += costValue * item.quantity;
+    });
+
+    return total.toFixed(2);
   };
 
   return (
