@@ -47,6 +47,13 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.name-category{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;
