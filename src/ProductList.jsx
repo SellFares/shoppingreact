@@ -10,6 +10,7 @@ function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+
     const dispatch = useDispatch();
 
     // Access the number of items in the cart from Redux store
@@ -271,6 +272,15 @@ function ProductList({ onHomeClick }) {
           ...prevState, // Spread the previous state to retain existing entries
           [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
+        
+    };
+
+    const handleItemRemoved = (product) => {
+        setAddedToCart((prevState) => {
+            const newState = { ...prevState };
+            delete newState[product];
+            return newState;
+        });
     };
     return (
         <div>
@@ -317,8 +327,9 @@ function ProductList({ onHomeClick }) {
                                 <button
                                     className="product-button"
                                     onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                                    disabled = {addedToCart[plant.name]} // Disable Button after clicked
                                 >
-                                    Add to Cart
+                                    {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
                                 </button>
                                 </div>
                             ))}
@@ -328,7 +339,9 @@ function ProductList({ onHomeClick }) {
 
                 </div>
             ) : (
-                <CartItem onContinueShopping={handleContinueShopping} />
+                <CartItem onContinueShopping={handleContinueShopping}
+                          onItemRemoved={handleItemRemoved} 
+                />
             )}
         </div>
     );
